@@ -27,10 +27,26 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text("Hello Flutter"),
+        title: const Text(
+          "Hello Flutter",
+        ),
       ),
       body: Container(
         color: Colors.white,
+        child: const Center(
+          child: Text(
+            "Hello, World!",
+            style: TextStyle(
+              fontSize: 30,
+              color: Colors.blue,
+              fontWeight: FontWeight.bold,
+              fontStyle: FontStyle.italic,
+              decoration: TextDecoration.underline,
+              decorationColor: Colors.red,
+              decorationStyle: TextDecorationStyle.dashed,
+            ),
+          ),
+        ),
       ),
     );
   }
