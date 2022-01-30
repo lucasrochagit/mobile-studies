@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hello/widgets/black_button.dart';
 
 class HelloPage1 extends StatelessWidget {
   const HelloPage1({Key? key}) : super(key: key);
@@ -16,11 +17,12 @@ class HelloPage1 extends StatelessWidget {
 
   _body(BuildContext context) {
     return Center(
-      child: ElevatedButton(
-        onPressed: () => onClickReturn(context),
-        child: const Text('Voltar'),
-      ),
-    );
+        child: BlackButton(
+      "Voltar",
+      () => onClickReturn(context),
+      buttonColor: Colors.white,
+      textColor: Colors.black,
+    ));
   }
 
   onClickReturn(BuildContext context) {
