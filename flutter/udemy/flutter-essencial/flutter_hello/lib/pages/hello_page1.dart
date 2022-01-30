@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hello/utils/nav.dart';
 import 'package:flutter_hello/widgets/black_button.dart';
 
 class HelloPage1 extends StatelessWidget {
@@ -26,6 +27,6 @@ class HelloPage1 extends StatelessWidget {
   }
 
   onClickReturn(BuildContext context) {
-    Navigator.pop(context, "Page 1");
+    pop(context, "Page 1");
   }
 }
