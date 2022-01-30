@@ -15,22 +15,13 @@ class HomePage extends StatelessWidget {
   }
 
   Container _body(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return Container(
-      color: Colors.yellow,
-      width: size.width,
-      // height: size.height,
-      // child: Center(
-      //     // child: _text(),
-      //     // child: _img()
-      //     child: _button()),
+      color: Colors.white,
       child: Column(
-        mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          _button(),
-          _button(),
+          _text(),
+          _img(),
           _button(),
         ],
       ),
@@ -38,7 +29,7 @@ class HomePage extends StatelessWidget {
   }
 
   Image _img() {
-    return Image.asset("assets/images/dog4.png",
+    return Image.asset("assets/images/dog1.png",
         // width: 300,
         // height: 300,
         fit: BoxFit.cover);
