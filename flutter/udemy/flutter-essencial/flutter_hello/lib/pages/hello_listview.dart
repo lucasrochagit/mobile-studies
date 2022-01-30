@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hello/models/dog.dart';
 
-class HelloListView extends StatelessWidget {
+class HelloListView extends StatefulWidget {
   const HelloListView({Key? key}) : super(key: key);
+
+  @override
+  State<HelloListView> createState() => _HelloListViewState();
+}
+
+class _HelloListViewState extends State<HelloListView> {
+  bool _gridView = true;
 
   @override
   Widget build(BuildContext context) {
@@ -14,11 +21,19 @@ class HelloListView extends StatelessWidget {
         ),
         actions: <Widget>[
           IconButton(
-            onPressed: () => {print("Lista")},
+            onPressed: () {
+              setState(() {
+                _gridView = false;
+              });
+            },
             icon: const Icon(Icons.list),
           ),
           IconButton(
-            onPressed: () => {print("Grid")},
+            onPressed: () {
+              setState(() {
+                _gridView = true;
+              });
+            },
             icon: const Icon(Icons.grid_on),
           )
         ],
@@ -27,7 +42,7 @@ class HelloListView extends StatelessWidget {
     );
   }
 
-  GridView _body() {
+  BoxScrollView _body() {
     final List<Dog> dogs = [
       Dog("Jack Russel", "assets/images/dog1.png"),
       Dog("Labrador", "assets/images/dog2.png"),
@@ -36,73 +51,54 @@ class HelloListView extends StatelessWidget {
       Dog("Pastor", "assets/images/dog5.png"),
     ];
 
-    // return ListView.builder(
-    //   itemCount: dogs.length,
-    //   itemExtent: 300,
-    //   itemBuilder: (BuildContext context, int index) {
-    //     Dog dog = dogs[index];
-    //     // return _img(dog.photo);
-    //     return Stack(
-    //       fit: StackFit.expand,
-    //       children: <Widget>[
-    //         _img(dog.photo),
-    //         Align(
-    //             alignment: Alignment.topLeft,
-    //             // alignment: Alignment(1, 1),
-    //             child: Container(
-    //               margin: const EdgeInsets.all(12),
-    //               padding: const EdgeInsets.all(8),
-    //               decoration: BoxDecoration(
-    //                   color: Colors.black45,
-    //                   borderRadius: BorderRadius.circular(
-    //                     16,
-    //                   )),
-    //               child: Text(
-    //                 dog.name,
-    //                 style: const TextStyle(
-    //                   fontSize: 26,
-    //                   color: Colors.white,
-    //                 ),
-    //               ),
-    //             ))
-    //       ],
-    //     );
-    //   },
-    // );
-    return GridView.builder(
-      gridDelegate:
-          const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+    if (_gridView) {
+      return GridView.builder(
+        gridDelegate:
+            const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+        itemCount: dogs.length,
+        // itemExtent: 300,
+        itemBuilder: (BuildContext context, int index) {
+          return _itemView(dogs, index);
+        },
+      );
+    }
+    return ListView.builder(
       itemCount: dogs.length,
-      // itemExtent: 300,
+      itemExtent: 300,
       itemBuilder: (BuildContext context, int index) {
-        Dog dog = dogs[index];
-        // return _img(dog.photo);
-        return Stack(
-          fit: StackFit.expand,
-          children: <Widget>[
-            _img(dog.photo),
-            Align(
-                alignment: Alignment.topLeft,
-                // alignment: Alignment(1, 1),
-                child: Container(
-                  margin: const EdgeInsets.all(12),
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                      color: Colors.black45,
-                      borderRadius: BorderRadius.circular(
-                        16,
-                      )),
-                  child: Text(
-                    dog.name,
-                    style: const TextStyle(
-                      fontSize: 26,
-                      color: Colors.white,
-                    ),
-                  ),
-                ))
-          ],
-        );
+        return _itemView(dogs, index);
       },
+    );
+  }
+
+  Stack _itemView(List<Dog> dogs, int index) {
+    Dog dog = dogs[index];
+    // return _img(dog.photo);
+    return Stack(
+      fit: StackFit.expand,
+      children: <Widget>[
+        _img(dog.photo),
+        Align(
+          alignment: Alignment.topLeft,
+          // alignment: Alignment(1, 1),
+          child: Container(
+            margin: const EdgeInsets.all(12),
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+                color: Colors.black45,
+                borderRadius: BorderRadius.circular(
+                  16,
+                )),
+            child: Text(
+              dog.name,
+              style: const TextStyle(
+                fontSize: 26,
+                color: Colors.white,
+              ),
+            ),
+          ),
+        )
+      ],
     );
   }
 
