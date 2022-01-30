@@ -1,6 +1,6 @@
 class Dog {
-  String nome;
+  String name;
   String photo;
 
-  Dog(this.nome, this.photo);
+  Dog(this.name, this.photo);
 }

@@ -30,18 +30,22 @@ class HelloListView extends StatelessWidget {
       itemExtent: 300,
       itemBuilder: (BuildContext context, int index) {
         Dog dog = dogs[index];
-        return _img(dog.photo);
+        // return _img(dog.photo);
+        return Stack(
+          fit: StackFit.expand,
+          children: <Widget>[
+            _img(dog.photo),
+            Text(
+              dog.name,
+              style: const TextStyle(
+                fontSize: 26,
+                color: Colors.white,
+              ),
+            )
+          ],
+        );
       },
     );
-
-    /*
-    return Container(
-      child: ListView(
-        itemExtent: 350,
-        children: imgs,
-      ),
-    );
-    */
   }
 
   Image _img(String path) {
