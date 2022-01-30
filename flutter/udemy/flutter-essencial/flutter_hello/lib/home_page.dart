@@ -11,19 +11,23 @@ class HomePage extends StatelessWidget {
             "Hello Flutter",
           ),
         ),
-        body: _body());
+        body: _body(context));
   }
 
-  Container _body() {
+  Container _body(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Container(
       color: Colors.yellow,
+      width: size.width,
+      // height: size.height,
       // child: Center(
       //     // child: _text(),
       //     // child: _img()
       //     child: _button()),
-      child: Row(
+      child: Column(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           _button(),
           _button(),
