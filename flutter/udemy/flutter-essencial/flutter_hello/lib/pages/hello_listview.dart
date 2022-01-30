@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hello/models/dog.dart';
 
 class HelloListView extends StatelessWidget {
   const HelloListView({Key? key}) : super(key: key);
@@ -16,19 +17,20 @@ class HelloListView extends StatelessWidget {
   }
 
   ListView _body() {
-    final List<Image> imgs = [
-      _img("assets/images/dog1.png"),
-      _img("assets/images/dog2.png"),
-      _img("assets/images/dog3.png"),
-      _img("assets/images/dog4.png"),
-      _img("assets/images/dog5.png"),
+    final List<Dog> dogs = [
+      Dog("Jack Russel", "assets/images/dog1.png"),
+      Dog("Labrador", "assets/images/dog2.png"),
+      Dog("Pug", "assets/images/dog3.png"),
+      Dog("Rottweiler", "assets/images/dog4.png"),
+      Dog("Pastor", "assets/images/dog5.png"),
     ];
 
     return ListView.builder(
-      itemCount: imgs.length,
+      itemCount: dogs.length,
       itemExtent: 300,
       itemBuilder: (BuildContext context, int index) {
-        return imgs[index];
+        Dog dog = dogs[index];
+        return _img(dog.photo);
       },
     );
 
