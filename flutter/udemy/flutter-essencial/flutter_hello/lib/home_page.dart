@@ -21,8 +21,23 @@ class HomePage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           _text(),
-          _img("assets/images/dog1.png"),
+          _pageView(),
           _buttons(),
+        ],
+      ),
+    );
+  }
+
+  SizedBox _pageView() {
+    return SizedBox(
+      height: 300,
+      child: PageView(
+        children: <Widget>[
+          _img("assets/images/dog1.png"),
+          _img("assets/images/dog2.png"),
+          _img("assets/images/dog3.png"),
+          _img("assets/images/dog4.png"),
+          _img("assets/images/dog5.png"),
         ],
       ),
     );
