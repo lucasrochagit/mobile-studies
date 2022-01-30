@@ -21,8 +21,9 @@ class HomePage extends StatelessWidget {
       //     // child: _text(),
       //     // child: _img()
       //     child: _button()),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           _button(),
           _button(),
