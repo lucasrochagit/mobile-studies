@@ -18,19 +18,38 @@ class HomePage extends StatelessWidget {
     return Container(
       color: Colors.white,
       child: Center(
-        // child: _text(),
-        child: _img()
-      ),
+          // child: _text(),
+          // child: _img()
+          child: _button()),
     );
   }
 
   Image _img() {
-    return Image.asset(
-      "assets/images/dog4.png",
-      // width: 300,
-      // height: 300,
-      fit: BoxFit.cover
+    return Image.asset("assets/images/dog4.png",
+        // width: 300,
+        // height: 300,
+        fit: BoxFit.cover);
+  }
+
+  ElevatedButton _button() {
+    return ElevatedButton(
+      // onPressed: () => _onClickOk(),
+      onPressed: _onClickOk,
+      style: ElevatedButton.styleFrom(
+        primary: Colors.black,
+      ),
+      child: const Text(
+        "OK",
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 30,
+        ),
+      ),
     );
+  }
+
+  void _onClickOk() {
+    print("Clicou no botão ok");
   }
 
   Text _text() {
