@@ -1,30 +1,31 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hello/pages/hello_page1.dart';
 
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: const Text(
-            "Hello Flutter",
-          ),
+      appBar: AppBar(
+        centerTitle: true,
+        title: const Text(
+          "Hello Flutter",
         ),
-        body: _body(context));
+      ),
+      body: _body(context),
+    );
   }
 
-  SingleChildScrollView _body(BuildContext context) {
-    return SingleChildScrollView(
-      padding: const EdgeInsets.all(
-        20,
-      ),
+  Container _body(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(20),
+      color: Colors.white,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           _text(),
           _pageView(),
-          _buttons(),
+          _buttons(context),
         ],
       ),
     );
@@ -49,23 +50,23 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Column _buttons() {
+  Column _buttons(BuildContext context) {
     return Column(
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            _button("List View"),
-            _button("Page 2"),
-            _button("Page 3"),
+            _button(context, "List View"),
+            _button(context, "Page 2"),
+            _button(context, "Page 3"),
           ],
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            _button("Snack"),
-            _button("Dialog"),
-            _button("Toast"),
+            _button(context, "Snack"),
+            _button(context, "Dialog"),
+            _button(context, "Toast"),
           ],
         )
       ],
@@ -79,10 +80,12 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  ElevatedButton _button(String text) {
+  ElevatedButton _button(
+    BuildContext context,
+    String text,
+  ) {
     return ElevatedButton(
-      // onPressed: () => _onClickOk(),
-      onPressed: _onClickOk,
+      onPressed: () => _onClick(context),
       style: ElevatedButton.styleFrom(
         primary: Colors.black,
       ),
@@ -96,8 +99,10 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  void _onClickOk() {
-    print("Clicou no botão ok");
+  void _onClick(BuildContext context) {
+    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
+      return const HelloPage1();
+    }));
   }
 
   Text _text() {
