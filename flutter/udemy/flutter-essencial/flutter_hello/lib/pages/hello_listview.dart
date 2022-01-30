@@ -35,13 +35,16 @@ class HelloListView extends StatelessWidget {
           fit: StackFit.expand,
           children: <Widget>[
             _img(dog.photo),
-            Text(
-              dog.name,
-              style: const TextStyle(
-                fontSize: 26,
-                color: Colors.white,
-              ),
-            )
+            Container(
+                alignment: Alignment.topLeft,
+                // alignment: Alignment(1, 1),
+                child: Text(
+                  dog.name,
+                  style: const TextStyle(
+                    fontSize: 26,
+                    color: Colors.white,
+                  ),
+                ))
           ],
         );
       },
