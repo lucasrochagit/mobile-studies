@@ -16,11 +16,19 @@ class HomePage extends StatelessWidget {
 
   Container _body() {
     return Container(
-      color: Colors.white,
-      child: Center(
-          // child: _text(),
-          // child: _img()
-          child: _button()),
+      color: Colors.yellow,
+      // child: Center(
+      //     // child: _text(),
+      //     // child: _img()
+      //     child: _button()),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          _button(),
+          _button(),
+          _button(),
+        ],
+      ),
     );
   }
 
