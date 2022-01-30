@@ -16,6 +16,9 @@ class HomePage extends StatelessWidget {
 
   Container _body(BuildContext context) {
     return Container(
+      padding: const EdgeInsets.all(
+        20,
+      ),
       color: Colors.white,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -28,8 +31,12 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  SizedBox _pageView() {
-    return SizedBox(
+  Container _pageView() {
+    return Container(
+      margin: const EdgeInsets.only(
+        top: 20,
+        bottom: 20,
+      ),
       height: 300,
       child: PageView(
         children: <Widget>[
