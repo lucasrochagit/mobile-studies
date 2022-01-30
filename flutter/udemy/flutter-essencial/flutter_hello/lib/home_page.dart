@@ -14,12 +14,22 @@ class HomePage extends StatelessWidget {
         body: _body());
   }
 
-  _body() {
+  Container _body() {
     return Container(
       color: Colors.white,
       child: Center(
-        child: _text(),
+        // child: _text(),
+        child: _img()
       ),
+    );
+  }
+
+  Image _img() {
+    return Image.asset(
+      "assets/images/dog4.png",
+      // width: 300,
+      // height: 300,
+      fit: BoxFit.cover
     );
   }
 
