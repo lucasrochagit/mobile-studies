@@ -21,32 +21,55 @@ class HomePage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           _text(),
-          _img(),
-          _button(),
+          _img("assets/images/dog1.png"),
+          _buttons(),
         ],
       ),
     );
   }
 
-  Image _img() {
-    return Image.asset("assets/images/dog1.png",
-        // width: 300,
-        // height: 300,
-        fit: BoxFit.cover);
+  Column _buttons() {
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            _button("List View"),
+            _button("Page 2"),
+            _button("Page 3"),
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            _button("Snack"),
+            _button("Dialog"),
+            _button("Toast"),
+          ],
+        )
+      ],
+    );
   }
 
-  ElevatedButton _button() {
+  Image _img(String path) {
+    return Image.asset(
+      path,
+      fit: BoxFit.cover,
+    );
+  }
+
+  ElevatedButton _button(String text) {
     return ElevatedButton(
       // onPressed: () => _onClickOk(),
       onPressed: _onClickOk,
       style: ElevatedButton.styleFrom(
         primary: Colors.black,
       ),
-      child: const Text(
-        "OK",
-        style: TextStyle(
+      child: Text(
+        text,
+        style: const TextStyle(
           color: Colors.white,
-          fontSize: 30,
+          fontSize: 20,
         ),
       ),
     );
