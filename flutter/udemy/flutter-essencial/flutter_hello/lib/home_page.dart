@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hello/pages/hello_page1.dart';
+import 'package:flutter_hello/pages/hello_page2.dart';
+import 'package:flutter_hello/pages/hello_page3.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -56,22 +58,40 @@ class HomePage extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            _button(context, "List View"),
-            _button(context, "Page 2"),
-            _button(context, "Page 3"),
+            _button(
+              context,
+              "Page 1",
+              () => _onClickNavigator(context, const HelloPage1()),
+            ),
+            _button(
+              context,
+              "Page 2",
+              () => _onClickNavigator(context, const HelloPage2()),
+            ),
+            _button(
+              context,
+              "Page 3",
+              () => _onClickNavigator(context, const HelloPage3()),
+            ),
           ],
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            _button(context, "Snack"),
-            _button(context, "Dialog"),
-            _button(context, "Toast"),
+            _button(context, "Snack", _onClickSnack()),
+            _button(context, "Dialog", _onClickDialog()),
+            _button(context, "Toast", _onClickToast()),
           ],
         )
       ],
     );
   }
+
+  _onClickSnack() {}
+
+  _onClickDialog() {}
+
+  _onClickToast() {}
 
   Image _img(String path) {
     return Image.asset(
@@ -83,9 +103,10 @@ class HomePage extends StatelessWidget {
   ElevatedButton _button(
     BuildContext context,
     String text,
+    onPressed,
   ) {
     return ElevatedButton(
-      onPressed: () => _onClick(context),
+      onPressed: onPressed,
       style: ElevatedButton.styleFrom(
         primary: Colors.black,
       ),
@@ -99,10 +120,11 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  void _onClick(BuildContext context) {
-    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
-      return const HelloPage1();
+  void _onClickNavigator(BuildContext context, Widget page) async {
+    String s = await Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
+      return page;
     }));
+    print("Página retornada: $s");
   }
 
   Text _text() {
