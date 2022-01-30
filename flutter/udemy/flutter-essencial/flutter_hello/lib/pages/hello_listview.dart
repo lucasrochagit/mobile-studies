@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hello/models/dog.dart';
+import 'package:flutter_hello/pages/dog_page.dart';
+import 'package:flutter_hello/utils/nav.dart';
 
 class HelloListView extends StatefulWidget {
   const HelloListView({Key? key}) : super(key: key);
@@ -54,7 +56,7 @@ class _HelloListViewState extends State<HelloListView> {
     if (_gridView) {
       return GridView.builder(
         gridDelegate:
-            const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+        const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
         itemCount: dogs.length,
         // itemExtent: 300,
         itemBuilder: (BuildContext context, int index) {
@@ -71,34 +73,39 @@ class _HelloListViewState extends State<HelloListView> {
     );
   }
 
-  Stack _itemView(List<Dog> dogs, int index) {
+  GestureDetector _itemView(List<Dog> dogs, int index) {
     Dog dog = dogs[index];
     // return _img(dog.photo);
-    return Stack(
-      fit: StackFit.expand,
-      children: <Widget>[
-        _img(dog.photo),
-        Align(
-          alignment: Alignment.topLeft,
-          // alignment: Alignment(1, 1),
-          child: Container(
-            margin: const EdgeInsets.all(12),
-            padding: const EdgeInsets.all(8),
-            decoration: BoxDecoration(
-                color: Colors.black45,
-                borderRadius: BorderRadius.circular(
-                  16,
-                )),
-            child: Text(
-              dog.name,
-              style: const TextStyle(
-                fontSize: 26,
-                color: Colors.white,
+    return GestureDetector(
+      onTap: () {
+        push(context, DogPage(dog));
+      },
+      child: Stack(
+        fit: StackFit.expand,
+        children: <Widget>[
+          _img(dog.photo),
+          Align(
+            alignment: Alignment.topLeft,
+            // alignment: Alignment(1, 1),
+            child: Container(
+              margin: const EdgeInsets.all(12),
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                  color: Colors.black45,
+                  borderRadius: BorderRadius.circular(
+                    16,
+                  )),
+              child: Text(
+                dog.name,
+                style: const TextStyle(
+                  fontSize: 26,
+                  color: Colors.white,
+                ),
               ),
             ),
-          ),
-        )
-      ],
+          )
+        ],
+      ),
     );
   }
 
