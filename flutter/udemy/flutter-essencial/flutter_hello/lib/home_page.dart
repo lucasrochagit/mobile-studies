@@ -6,6 +6,8 @@ import 'package:flutter_hello/utils/nav.dart';
 import 'package:flutter_hello/widgets/black_button.dart';
 
 class HomePage extends StatelessWidget {
+  const HomePage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,11 +17,11 @@ class HomePage extends StatelessWidget {
           "Hello Flutter",
         ),
       ),
-      body: _body(context),
+      body: _body(),
     );
   }
 
-  Container _body(BuildContext context) {
+  Container _body() {
     return Container(
       padding: const EdgeInsets.all(20),
       color: Colors.white,
@@ -28,7 +30,7 @@ class HomePage extends StatelessWidget {
         children: <Widget>[
           _text(),
           _pageView(),
-          _buttons(context),
+          _buttons(),
         ],
       ),
     );
@@ -60,40 +62,53 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Column _buttons(BuildContext context) {
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            BlackButton(
-              "ListView",
-              () => _onClickNavigator(context, const HelloListView()),
-            ),
-            BlackButton(
-              "Page 2",
-              () => _onClickNavigator(context, const HelloPage2()),
-            ),
-            BlackButton(
-              "Page 3",
-              () => _onClickNavigator(context, const HelloPage3()),
-            ),
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            BlackButton("Snack", () => _onClickSnack()),
-            BlackButton("Dialog", () => _onClickDialog()),
-            BlackButton("Toast", () => _onClickToast()),
-          ],
-        )
-      ],
-    );
+  Builder _buttons() {
+    return Builder(builder: (BuildContext context) {
+      return Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              BlackButton(
+                "ListView",
+                () => _onClickNavigator(context, const HelloListView()),
+              ),
+              BlackButton(
+                "Page 2",
+                () => _onClickNavigator(context, const HelloPage2()),
+              ),
+              BlackButton(
+                "Page 3",
+                () => _onClickNavigator(context, const HelloPage3()),
+              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              BlackButton("Snack", () => _onClickSnack(context)),
+              BlackButton("Dialog", () => _onClickDialog()),
+              BlackButton("Toast", () => _onClickToast()),
+            ],
+          )
+        ],
+      );
+    });
   }
 
-  _onClickSnack() {
-    print("Snack");
+  _onClickSnack(BuildContext context) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Olá, Flutter'),
+        duration: Duration(seconds: 1),
+        action: SnackBarAction(
+            label: "OK",
+            textColor: Colors.yellow,
+            onPressed: () {
+              print("Ok!");
+            }),
+      ),
+    );
   }
 
   _onClickDialog() {
