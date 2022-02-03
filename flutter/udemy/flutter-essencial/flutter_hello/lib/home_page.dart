@@ -12,43 +12,59 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: const Text(
-          "Hello Flutter",
+    return DefaultTabController(
+      length: 3,
+      child: Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: const Text("Hello Flutter"),
+          bottom: const TabBar(tabs: [
+            Tab(text: "Tab 1"),
+            Tab(text: "Tab 2"),
+            Tab(text: "Tab 3"),
+          ]),
         ),
+        body: TabBarView(
+          children: [
+            _body(),
+            Container(
+              color: Colors.green,
+            ),
+            Container(
+              color: Colors.yellow,
+            )
+          ],
+        ),
+        floatingActionButton: FloatingActionButton(
+          child: const Icon(Icons.add),
+          onPressed: () {
+            _onClickFab();
+          },
+        ),
+        /*
+        floatingActionButton: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
+            FloatingActionButton(
+              child: const Icon(Icons.add),
+              onPressed: () {
+                _onClickFab();
+              },
+            ),
+            const SizedBox(
+              width: 16,
+            ),
+            FloatingActionButton(
+              child: const Icon(Icons.favorite),
+              onPressed: () {
+                _onClickFab();
+              },
+            )
+          ],
+        ),
+        */
+        drawer: const DrawerList(),
       ),
-      body: _body(),
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add),
-        onPressed: () {
-          _onClickFab();
-        },
-      ),
-      /*
-      floatingActionButton: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: <Widget>[
-          FloatingActionButton(
-            child: const Icon(Icons.add),
-            onPressed: () {
-              _onClickFab();
-            },
-          ),
-          const SizedBox(
-            width: 16,
-          ),
-          FloatingActionButton(
-            child: const Icon(Icons.favorite),
-            onPressed: () {
-              _onClickFab();
-            },
-          )
-        ],
-      ),
-      */
-      drawer: DrawerList(),
     );
   }
 
@@ -106,15 +122,15 @@ class HomePage extends StatelessWidget {
             children: <Widget>[
               BlackButton(
                 "ListView",
-                    () => _onClickNavigator(context, const HelloListView()),
+                () => _onClickNavigator(context, const HelloListView()),
               ),
               BlackButton(
                 "Page 2",
-                    () => _onClickNavigator(context, const HelloPage2()),
+                () => _onClickNavigator(context, const HelloPage2()),
               ),
               BlackButton(
                 "Page 3",
-                    () => _onClickNavigator(context, const HelloPage3()),
+                () => _onClickNavigator(context, const HelloPage3()),
               ),
             ],
           ),
@@ -134,8 +150,8 @@ class HomePage extends StatelessWidget {
   _onClickSnack(BuildContext context) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text('Olá, Flutter'),
-        duration: Duration(seconds: 1),
+        content: const Text('Olá, Flutter'),
+        duration: const Duration(seconds: 1),
         action: SnackBarAction(
             label: "OK",
             textColor: Colors.yellow,
