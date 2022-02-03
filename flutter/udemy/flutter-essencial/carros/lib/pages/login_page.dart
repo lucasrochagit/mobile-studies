@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatelessWidget {
@@ -19,55 +21,58 @@ class LoginPage extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       child: ListView(
         children: <Widget>[
-          TextFormField(
-            style: const TextStyle(
-              fontSize: 25,
-              color: Colors.blue,
-            ),
-            decoration: const InputDecoration(
-                labelText: "Login",
-                labelStyle: TextStyle(
-                  fontSize: 16,
-                ),
-                hintText: "Digite o Login",
-                hintStyle: TextStyle(
-                  fontSize: 16,
-                )),
+          _textFormField(
+            "Login",
+            "Digite o login",
           ),
           const SizedBox(height: 10),
-          TextFormField(
-              obscureText: true,
-              style: const TextStyle(
-                fontSize: 25,
-                color: Colors.blue,
-              ),
-              decoration: const InputDecoration(
-                  labelText: "Senha",
-                  labelStyle: TextStyle(
-                    fontSize: 16,
-                  ),
-                  hintText: "Digite a senha",
-                  hintStyle: TextStyle(
-                    fontSize: 16,
-                  ))),
-          const SizedBox(height: 20),
-          SizedBox(
-            height: 46,
-            child: ElevatedButton(
-              child: const Text(
-                "Login",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 22,
-                ),
-              ),
-              onPressed: () => {},
-              style: TextButton.styleFrom(
-                primary: Colors.blue,
-              ),
-            ),
+          _textFormField(
+            "Senha",
+            "Digite a senha",
+            obscureText: true,
           ),
+          const SizedBox(height: 20),
+          _button("Login"),
         ],
+      ),
+    );
+  }
+
+  SizedBox _button(String text) {
+    return SizedBox(
+      height: 46,
+      child: ElevatedButton(
+        child: Text(
+          text,
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 22,
+          ),
+        ),
+        onPressed: () => {},
+        style: TextButton.styleFrom(
+          primary: Colors.blue,
+        ),
+      ),
+    );
+  }
+
+  _textFormField(String label, String hint, {bool obscureText = false}) {
+    return TextFormField(
+      obscureText: obscureText,
+      style: const TextStyle(
+        fontSize: 25,
+        color: Colors.blue,
+      ),
+      decoration: InputDecoration(
+        labelText: label,
+        labelStyle: const TextStyle(
+          fontSize: 16,
+        ),
+        hintText: hint,
+        hintStyle: const TextStyle(
+          fontSize: 16,
+        ),
       ),
     );
   }
