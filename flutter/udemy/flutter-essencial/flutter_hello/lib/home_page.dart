@@ -87,7 +87,7 @@ class HomePage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               BlackButton("Snack", () => _onClickSnack(context)),
-              BlackButton("Dialog", () => _onClickDialog()),
+              BlackButton("Dialog", () => _onClickDialog(context)),
               BlackButton("Toast", () => _onClickToast()),
             ],
           )
@@ -111,8 +111,36 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  _onClickDialog() {
-    print("Dialog");
+  _onClickDialog(BuildContext context) {
+    showDialog(
+        barrierDismissible: false,
+        // only click on alert dialog options to close
+        context: context,
+        builder: (context) {
+          return WillPopScope(
+            onWillPop: () async => false, // does not allow close on back button
+            child: AlertDialog(
+              title: const Text(
+                "Flutter é muito legal!",
+              ),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text('Cancelar'),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                    print("Okkk");
+                  },
+                  child: const Text('Ok'),
+                )
+              ],
+            ),
+          );
+        });
   }
 
   _onClickToast() {
