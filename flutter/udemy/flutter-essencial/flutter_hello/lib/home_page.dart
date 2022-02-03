@@ -19,6 +19,13 @@ class HomePage extends StatelessWidget {
         ),
       ),
       body: _body(),
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.add),
+        onPressed: () {
+          _onClickFab();
+        },
+      ),
+      /*
       floatingActionButton: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
@@ -39,6 +46,8 @@ class HomePage extends StatelessWidget {
           )
         ],
       ),
+      */
+      drawer: const Drawer(),
     );
   }
 
