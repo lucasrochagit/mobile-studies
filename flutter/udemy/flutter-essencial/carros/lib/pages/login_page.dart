@@ -3,7 +3,10 @@ import 'dart:ffi';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatelessWidget {
-  const LoginPage({Key? key}) : super(key: key);
+  final _tLogin = TextEditingController();
+  final _tSenha = TextEditingController();
+
+  LoginPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,21 +27,23 @@ class LoginPage extends StatelessWidget {
           _textFormField(
             "Login",
             "Digite o login",
+            controller: _tLogin,
           ),
           const SizedBox(height: 10),
           _textFormField(
             "Senha",
             "Digite a senha",
             obscureText: true,
+            controller: _tSenha,
           ),
           const SizedBox(height: 20),
-          _button("Login"),
+          _button("Login", _onClickLogin),
         ],
       ),
     );
   }
 
-  SizedBox _button(String text) {
+  SizedBox _button(String text, VoidCallback onPressed) {
     return SizedBox(
       height: 46,
       child: ElevatedButton(
@@ -49,7 +54,7 @@ class LoginPage extends StatelessWidget {
             fontSize: 22,
           ),
         ),
-        onPressed: () => {},
+        onPressed: onPressed,
         style: TextButton.styleFrom(
           primary: Colors.blue,
         ),
@@ -57,8 +62,14 @@ class LoginPage extends StatelessWidget {
     );
   }
 
-  _textFormField(String label, String hint, {bool obscureText = false}) {
+  _textFormField(
+    String label,
+    String hint, {
+    bool obscureText = false,
+    TextEditingController? controller,
+  }) {
     return TextFormField(
+      controller: controller,
       obscureText: obscureText,
       style: const TextStyle(
         fontSize: 25,
@@ -75,5 +86,11 @@ class LoginPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _onClickLogin() {
+    String login = _tLogin.text;
+    String senha = _tSenha.text;
+    print("Login $login, Senha $senha");
   }
 }
