@@ -19,15 +19,39 @@ class HomePage extends StatelessWidget {
         ),
       ),
       body: _body(),
+      floatingActionButton: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: <Widget>[
+          FloatingActionButton(
+            child: const Icon(Icons.add),
+            onPressed: () {
+              _onClickFab();
+            },
+          ),
+          const SizedBox(
+            width: 16,
+          ),
+          FloatingActionButton(
+            child: const Icon(Icons.favorite),
+            onPressed: () {
+              _onClickFab();
+            },
+          )
+        ],
+      ),
     );
+  }
+
+  void _onClickFab() {
+    print("ActionButton");
   }
 
   Container _body() {
     return Container(
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.only(top: 16),
       color: Colors.white,
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           _text(),
           _pageView(),
