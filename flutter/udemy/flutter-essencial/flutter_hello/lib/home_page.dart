@@ -4,6 +4,7 @@ import 'package:flutter_hello/pages/hello_page2.dart';
 import 'package:flutter_hello/pages/hello_page3.dart';
 import 'package:flutter_hello/utils/nav.dart';
 import 'package:flutter_hello/widgets/black_button.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -144,7 +145,15 @@ class HomePage extends StatelessWidget {
   }
 
   _onClickToast() {
-    print("Toast");
+    Fluttertoast.showToast(
+      msg: "Flutter é muito legal",
+      toastLength: Toast.LENGTH_SHORT,
+      // gravity: ToastGravity.CENTER,
+      // timeInSecForIosWeb: 1,
+      // backgroundColor: Colors.red,
+      // textColor: Colors.white,
+      // fontSize: 20.0,
+    );
   }
 
   Image _img(String path) {
