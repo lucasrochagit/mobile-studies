@@ -1,5 +1,7 @@
 import 'dart:ffi';
 
+import 'package:carros/pages/home_page.dart';
+import 'package:carros/utils/nav.dart';
 import 'package:carros/widgets/app_button.dart';
 import 'package:carros/widgets/app_text.dart';
 import 'package:flutter/material.dart';
@@ -73,6 +75,7 @@ class _LoginPageState extends State<LoginPage> {
     String login = _tLogin.text;
     String senha = _tSenha.text;
     print("Login $login, Senha $senha");
+    push(context, const HomePage());
   }
 
   _validateLogin(String? value) {
