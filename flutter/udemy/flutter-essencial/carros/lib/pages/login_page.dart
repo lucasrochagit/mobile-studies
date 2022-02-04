@@ -3,6 +3,7 @@ import 'dart:ffi';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatelessWidget {
+  final _formKey = GlobalKey<FormState>();
   final _tLogin = TextEditingController();
   final _tSenha = TextEditingController();
 
@@ -20,25 +21,29 @@ class LoginPage extends StatelessWidget {
   }
 
   _body() {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      child: ListView(
-        children: <Widget>[
-          _textFormField(
-            "Login",
-            "Digite o login",
-            controller: _tLogin,
-          ),
-          const SizedBox(height: 10),
-          _textFormField(
-            "Senha",
-            "Digite a senha",
-            obscureText: true,
-            controller: _tSenha,
-          ),
-          const SizedBox(height: 20),
-          _button("Login", _onClickLogin),
-        ],
+    return Form(
+      key: _formKey,
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        child: ListView(
+          children: <Widget>[
+            _textFormField(
+              "Login",
+              "Digite o login",
+              controller: _tLogin,
+              validator: (value) => _validateLogin(value),
+            ),
+            const SizedBox(height: 10),
+            _textFormField("Senha", "Digite a senha",
+                obscureText: true,
+                controller: _tSenha,
+                validator: (value) => _validatePassword(value),
+                keyboardType: TextInputType.number,
+            ),
+            const SizedBox(height: 20),
+            _button("Login", _onClickLogin),
+          ],
+        ),
       ),
     );
   }
@@ -67,8 +72,11 @@ class LoginPage extends StatelessWidget {
     String hint, {
     bool obscureText = false,
     TextEditingController? controller,
+    FormFieldValidator<String>? validator,
+    TextInputType keyboardType = TextInputType.text,
   }) {
     return TextFormField(
+      validator: validator,
       controller: controller,
       obscureText: obscureText,
       style: const TextStyle(
@@ -85,12 +93,37 @@ class LoginPage extends StatelessWidget {
           fontSize: 16,
         ),
       ),
+      keyboardType: keyboardType,
     );
   }
 
   void _onClickLogin() {
+    bool? formOk = _formKey.currentState?.validate();
+    if (!formOk!) {
+      return;
+    }
     String login = _tLogin.text;
     String senha = _tSenha.text;
     print("Login $login, Senha $senha");
+  }
+
+  _validateLogin(String? value) {
+    if (value == null || value.isEmpty) {
+      return "Digite o login";
+    }
+    if (value.length < 3) {
+      return "Login precisa ter pelo menos 3 dígitos";
+    }
+    return null;
+  }
+
+  _validatePassword(String? value) {
+    if (value == null || value.isEmpty) {
+      return "Digite a senha";
+    }
+    if (value.length < 3) {
+      return "Senha precisa ter pelo menos 3 números";
+    }
+    return null;
   }
 }
