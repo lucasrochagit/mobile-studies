@@ -1,5 +1,6 @@
 import 'dart:ffi';
 
+import 'package:carros/login_api.dart';
 import 'package:carros/pages/home_page.dart';
 import 'package:carros/utils/nav.dart';
 import 'package:carros/widgets/app_button.dart';
@@ -67,7 +68,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  void _onClickLogin() {
+  void _onClickLogin() async {
     bool? formOk = _formKey.currentState?.validate();
     if (!formOk!) {
       return;
@@ -75,7 +76,13 @@ class _LoginPageState extends State<LoginPage> {
     String login = _tLogin.text;
     String senha = _tSenha.text;
     print("Login $login, Senha $senha");
-    push(context, const HomePage());
+
+    bool ok = await LoginApi.login(login, senha);
+    if (ok) {
+      push(context, const HomePage());
+    } else {
+      print("Erro");
+    }
   }
 
   _validateLogin(String? value) {
