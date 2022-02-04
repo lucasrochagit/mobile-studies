@@ -1,5 +1,7 @@
 import 'dart:ffi';
 
+import 'package:carros/widgets/app_button.dart';
+import 'package:carros/widgets/app_text.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -36,7 +38,7 @@ class _LoginPageState extends State<LoginPage> {
         padding: const EdgeInsets.all(16),
         child: ListView(
           children: <Widget>[
-            _textFormField(
+            AppText(
               "Login",
               "Digite o login",
               controller: _tLogin,
@@ -45,7 +47,7 @@ class _LoginPageState extends State<LoginPage> {
               nextFocus: _focusSenha,
             ),
             const SizedBox(height: 10),
-            _textFormField(
+            AppText(
               "Senha",
               "Digite a senha",
               obscureText: true,
@@ -56,69 +58,10 @@ class _LoginPageState extends State<LoginPage> {
               focusNode: _focusSenha,
             ),
             const SizedBox(height: 20),
-            _button("Login", _onClickLogin),
+            AppButton("Login", onPressed: _onClickLogin),
           ],
         ),
       ),
-    );
-  }
-
-  SizedBox _button(String text, VoidCallback onPressed) {
-    return SizedBox(
-      height: 46,
-      child: ElevatedButton(
-        child: Text(
-          text,
-          style: const TextStyle(
-            color: Colors.white,
-            fontSize: 22,
-          ),
-        ),
-        onPressed: onPressed,
-        style: TextButton.styleFrom(
-          primary: Colors.blue,
-        ),
-      ),
-    );
-  }
-
-  _textFormField(
-    String label,
-    String hint, {
-    bool obscureText = false,
-    TextEditingController? controller,
-    FormFieldValidator<String>? validator,
-    TextInputType keyboardType = TextInputType.text,
-    TextInputAction textInputAction = TextInputAction.done,
-    FocusNode? focusNode,
-    FocusNode? nextFocus,
-  }) {
-    return TextFormField(
-      validator: validator,
-      controller: controller,
-      obscureText: obscureText,
-      style: const TextStyle(
-        fontSize: 25,
-        color: Colors.blue,
-      ),
-      decoration: InputDecoration(
-        labelText: label,
-        labelStyle: const TextStyle(
-          fontSize: 16,
-        ),
-        hintText: hint,
-        hintStyle: const TextStyle(
-          fontSize: 16,
-        ),
-      ),
-      keyboardType: keyboardType,
-      textInputAction: textInputAction,
-      focusNode: focusNode,
-      onFieldSubmitted: (String text) {
-        if (nextFocus != null) {
-          FocusScope.of(context).requestFocus(nextFocus);
-        }
-      },
     );
   }
 
