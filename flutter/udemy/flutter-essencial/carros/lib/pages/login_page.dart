@@ -2,12 +2,21 @@ import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
+  LoginPage({Key? key}) : super(key: key);
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
+
   final _tLogin = TextEditingController();
+
   final _tSenha = TextEditingController();
 
-  LoginPage({Key? key}) : super(key: key);
+  final _focusSenha = FocusNode();
 
   @override
   Widget build(BuildContext context) {
@@ -32,13 +41,19 @@ class LoginPage extends StatelessWidget {
               "Digite o login",
               controller: _tLogin,
               validator: (value) => _validateLogin(value),
+              textInputAction: TextInputAction.next,
+              nextFocus: _focusSenha,
             ),
             const SizedBox(height: 10),
-            _textFormField("Senha", "Digite a senha",
-                obscureText: true,
-                controller: _tSenha,
-                validator: (value) => _validatePassword(value),
-                keyboardType: TextInputType.number,
+            _textFormField(
+              "Senha",
+              "Digite a senha",
+              obscureText: true,
+              controller: _tSenha,
+              validator: (value) => _validatePassword(value),
+              keyboardType: TextInputType.number,
+              textInputAction: TextInputAction.next,
+              focusNode: _focusSenha,
             ),
             const SizedBox(height: 20),
             _button("Login", _onClickLogin),
@@ -74,6 +89,9 @@ class LoginPage extends StatelessWidget {
     TextEditingController? controller,
     FormFieldValidator<String>? validator,
     TextInputType keyboardType = TextInputType.text,
+    TextInputAction textInputAction = TextInputAction.done,
+    FocusNode? focusNode,
+    FocusNode? nextFocus,
   }) {
     return TextFormField(
       validator: validator,
@@ -94,6 +112,13 @@ class LoginPage extends StatelessWidget {
         ),
       ),
       keyboardType: keyboardType,
+      textInputAction: textInputAction,
+      focusNode: focusNode,
+      onFieldSubmitted: (String text) {
+        if (nextFocus != null) {
+          FocusScope.of(context).requestFocus(nextFocus);
+        }
+      },
     );
   }
 
