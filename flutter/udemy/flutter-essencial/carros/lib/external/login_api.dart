@@ -22,7 +22,7 @@ class LoginApi {
       Map<String, dynamic> mapResponse = json.decode(response.body);
 
       if (response.statusCode == 200) {
-        return ApiResponse.ok(Usuario.fromJSON(mapResponse));
+        return ApiResponse.ok(Usuario.fromJson(mapResponse));
       }
 
       return ApiResponse.error(mapResponse['error']);

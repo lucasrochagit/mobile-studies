@@ -6,7 +6,7 @@ class Usuario {
   List<String>? roles;
 
   // named constructor
-  Usuario.fromJSON(Map<String, dynamic> map)
+  Usuario.fromJson(Map<String, dynamic> map)
       : nome = map['nome'],
         email = map['email'],
         login = map['login'],
