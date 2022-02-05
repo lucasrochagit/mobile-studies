@@ -1,24 +1,16 @@
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 import 'package:carros/models/carro.dart';
 
 class CarrosApi {
-  static Future<List<Carro>> getCarros() async{
-    Future.delayed(const Duration(seconds: 5));
+  static Future<List<Carro>> getCarros() async {
+    final Uri url =
+        Uri.parse('http://carros-springboot.herokuapp.com/api/v1/carros');
 
-    final carros = <Carro>[
-      Carro(
-          nome: "Ford Mustang 1976 BBBA",
-          urlFoto:
-              "https://s3-sa-east-1.amazonaws.com/videos.livetouchdev.com.br/classicos/Ford_Mustang.png"),
-      Carro(
-          nome: "Chevrolet Corvette Z06",
-          urlFoto:
-              "https://s3-sa-east-1.amazonaws.com/videos.livetouchdev.com.br/esportivos/Chevrolet_Corvette_Z06.png"),
-      Carro(
-          nome: "BMW M5",
-          urlFoto:
-              "https://s3-sa-east-1.amazonaws.com/videos.livetouchdev.com.br/esportivos/BMW.png")
-    ];
+    var response = await http.get(url);
 
-    return carros;
+    List list = json.decode(response.body);
+
+    return list.map<Carro>((map) => Carro.fromJson(map)).toList();
   }
 }
