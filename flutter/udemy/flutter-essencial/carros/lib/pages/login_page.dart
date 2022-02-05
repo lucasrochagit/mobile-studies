@@ -1,8 +1,8 @@
-import 'dart:ffi';
-
 import 'package:carros/external/login_api.dart';
+import 'package:carros/models/api_response.dart';
 import 'package:carros/models/usuario.dart';
 import 'package:carros/pages/home_page.dart';
+import 'package:carros/utils/alert.dart';
 import 'package:carros/utils/nav.dart';
 import 'package:carros/widgets/app_button.dart';
 import 'package:carros/widgets/app_text.dart';
@@ -78,12 +78,14 @@ class _LoginPageState extends State<LoginPage> {
     String senha = _tSenha.text;
     print("Login $login, Senha $senha");
 
-    Usuario? usuario = await LoginApi.login(login, senha);
-    if (usuario != null) {
-      print(usuario.toString());
+    ApiResponse<Usuario>? response = await LoginApi.login(login, senha);
+    if (response!.ok == true) {
+      Usuario? user = response.result;
+      print(user.toString());
       push(context, const HomePage());
     } else {
-      print("Erro");
+      String? msg = response.msg ?? 'Um erro interno occorreu. Tente novamente mais tarde.';
+      alert(context, msg);
     }
   }
 
