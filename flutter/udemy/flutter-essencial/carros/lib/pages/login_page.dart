@@ -24,6 +24,8 @@ class _LoginPageState extends State<LoginPage> {
 
   final _focusSenha = FocusNode();
 
+  bool _showProgress = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,8 +38,6 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   _body() {
-    bool _showProgress = false;
-
     return Form(
       key: _formKey,
       child: Container(
@@ -82,18 +82,24 @@ class _LoginPageState extends State<LoginPage> {
     }
     String login = _tLogin.text;
     String senha = _tSenha.text;
-    print("Login $login, Senha $senha");
+
+    setState(() {
+      _showProgress = true;
+    });
 
     ApiResponse<Usuario>? response = await LoginApi.login(login, senha);
     if (response!.ok == true) {
       Usuario? user = response.result;
-      print(user.toString());
       push(context, const HomePage());
     } else {
       String? msg = response.msg ??
           'Um erro interno occorreu. Tente novamente mais tarde.';
       alert(context, msg);
     }
+
+    setState(() {
+      _showProgress = false;
+    });
   }
 
   _validateLogin(String? value) {
