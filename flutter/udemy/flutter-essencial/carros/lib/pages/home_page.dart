@@ -17,15 +17,21 @@ class HomePage extends StatelessWidget {
           title: const Text("Carros"),
           bottom: const TabBar(tabs: [
             Tab(text: "Clássicos"),
-            const Tab(text: "Esportivos"),
-            const Tab(text: "Luxo"),
+            Tab(text: "Esportivos"),
+            Tab(text: "Luxo"),
           ]),
         ),
         body: const TabBarView(
           children: [
-            CarrosListView(),
-            CarrosListView(),
-            CarrosListView(),
+            CarrosListView(
+              tipoCarro: TipoCarro.classicos,
+            ),
+            CarrosListView(
+              tipoCarro: TipoCarro.esportivos,
+            ),
+            CarrosListView(
+              tipoCarro: TipoCarro.luxo,
+            ),
           ],
         ),
         drawer: const DrawerList(),
