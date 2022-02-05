@@ -20,7 +20,7 @@ class LoginApi {
     print('Response status: ${response.statusCode}');
     print('Response body: ${response.body}');
 
-    Map mapResponse = json.decode(response.body);
+    Map<String, dynamic> mapResponse = json.decode(response.body);
 
     if (response.statusCode == 200) {
       return Usuario.fromJSON(mapResponse);

@@ -6,14 +6,16 @@ class Usuario {
   List<String>? roles;
 
   // named constructor
-  Usuario.fromJSON(Map map)
+  Usuario.fromJSON(Map<String, dynamic> map)
       : nome = map['nome'],
         email = map['email'],
         login = map['login'],
-        token = map['token'];
+        token = map['token'],
+        roles = map['roles']?.map<String>((role) => role.toString()).toList();
 
   @override
   String toString() {
-    return 'Usuario {login: $login, nome: $nome, email: $email, token: $token }';
+    return 'Usuario {login: $login, nome: $nome, email: $email, token: $token,' +
+        'roles: $roles }';
   }
 }
