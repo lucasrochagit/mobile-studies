@@ -1,7 +1,9 @@
 import 'package:carros/models/carro.dart';
 
 class CarrosApi {
-  static List<Carro> getCarros() {
+  static Future<List<Carro>> getCarros() async{
+    Future.delayed(const Duration(seconds: 5));
+
     final carros = <Carro>[
       Carro(
           nome: "Ford Mustang 1976 BBBA",

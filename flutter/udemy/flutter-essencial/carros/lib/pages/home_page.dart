@@ -14,18 +14,30 @@ class HomePage extends StatelessWidget {
         title: const Text("Carros"),
       ),
       body: _body(),
-      drawer: DrawerList(),
+      drawer: const DrawerList(),
     );
   }
 
   _body() {
-    List<Carro> carros = CarrosApi.getCarros();
+    Future<List<Carro>> carros = CarrosApi.getCarros();
 
+    return FutureBuilder(
+      future: carros,
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) {
+          return Center(child: CircularProgressIndicator());
+        }
+        List<Carro>? carros = snapshot.data as List<Carro>?;
+        return _listView(carros!);
+      },
+    );
+  }
+
+  Container _listView(List<Carro> carros) {
     return Container(
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       child: ListView.builder(
-          // itemCount: carros.length,
-          itemCount: 3,
+          itemCount: carros != null ? carros.length : 0,
           itemBuilder: (context, index) {
             Carro c = carros[index];
 
