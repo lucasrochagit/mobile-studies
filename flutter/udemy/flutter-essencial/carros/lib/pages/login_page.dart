@@ -90,7 +90,7 @@ class _LoginPageState extends State<LoginPage> {
     ApiResponse<Usuario>? response = await LoginApi.login(login, senha);
     if (response!.ok == true) {
       Usuario? user = response.result;
-      push(context, const HomePage());
+      push(context, const HomePage(), replace: true);
     } else {
       String? msg = response.msg ??
           'Um erro interno occorreu. Tente novamente mais tarde.';
