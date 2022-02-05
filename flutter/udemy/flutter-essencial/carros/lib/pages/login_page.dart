@@ -36,6 +36,8 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   _body() {
+    bool _showProgress = false;
+
     return Form(
       key: _formKey,
       child: Container(
@@ -62,7 +64,11 @@ class _LoginPageState extends State<LoginPage> {
               focusNode: _focusSenha,
             ),
             const SizedBox(height: 20),
-            AppButton("Login", onPressed: _onClickLogin),
+            AppButton(
+              "Login",
+              onPressed: _onClickLogin,
+              showProgress: _showProgress,
+            ),
           ],
         ),
       ),
@@ -84,7 +90,8 @@ class _LoginPageState extends State<LoginPage> {
       print(user.toString());
       push(context, const HomePage());
     } else {
-      String? msg = response.msg ?? 'Um erro interno occorreu. Tente novamente mais tarde.';
+      String? msg = response.msg ??
+          'Um erro interno occorreu. Tente novamente mais tarde.';
       alert(context, msg);
     }
   }
