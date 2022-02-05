@@ -1,6 +1,7 @@
 import 'dart:ffi';
 
-import 'package:carros/login_api.dart';
+import 'package:carros/external/login_api.dart';
+import 'package:carros/models/usuario.dart';
 import 'package:carros/pages/home_page.dart';
 import 'package:carros/utils/nav.dart';
 import 'package:carros/widgets/app_button.dart';
@@ -77,8 +78,9 @@ class _LoginPageState extends State<LoginPage> {
     String senha = _tSenha.text;
     print("Login $login, Senha $senha");
 
-    bool ok = await LoginApi.login(login, senha);
-    if (ok) {
+    Usuario? usuario = await LoginApi.login(login, senha);
+    if (usuario != null) {
+      print(usuario.toString());
       push(context, const HomePage());
     } else {
       print("Erro");
