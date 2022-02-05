@@ -9,14 +9,27 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: const Text("Carros"),
+    return DefaultTabController(
+      length: 3,
+      child: Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: const Text("Carros"),
+          bottom: const TabBar(tabs: [
+            Tab(text: "Clássicos"),
+            const Tab(text: "Esportivos"),
+            const Tab(text: "Luxo"),
+          ]),
+        ),
+        body: const TabBarView(
+          children: [
+            CarrosListView(),
+            CarrosListView(),
+            CarrosListView(),
+          ],
+        ),
+        drawer: const DrawerList(),
       ),
-      body: const CarrosListView(),
-      drawer: const DrawerList(),
     );
   }
-
 }
