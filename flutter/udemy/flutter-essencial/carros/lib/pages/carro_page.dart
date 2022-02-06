@@ -12,6 +12,7 @@ class CarroPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(carro.nome ?? 'Carro'),
+        centerTitle: true,
       ),
       body: _body(),
     );
