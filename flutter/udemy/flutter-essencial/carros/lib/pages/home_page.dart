@@ -1,5 +1,6 @@
 import 'package:carros/drawer_list.dart';
 import 'package:carros/external/carros_api.dart';
+import 'package:carros/utils/prefs.dart';
 import 'package:carros/widgets/carros_listview.dart';
 import 'package:flutter/material.dart';
 
@@ -18,10 +19,11 @@ class _HomePageState extends State<HomePage>
   void initState() {
     super.initState();
     _tabController = TabController(length: 3, vsync: this);
-    _tabController.index = 1;
+
+    Prefs.getInt('tabIdx').then((value) => {_tabController.index = value});
 
     _tabController.addListener(() {
-      print("Tab ${_tabController.index}");
+      Prefs.setInt('tabIdx', _tabController.index);
     });
   }
 
