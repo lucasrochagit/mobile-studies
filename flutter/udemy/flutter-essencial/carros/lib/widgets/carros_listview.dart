@@ -3,6 +3,7 @@ import 'package:carros/external/carros_api.dart';
 import 'package:carros/models/carro.dart';
 import 'package:carros/pages/carro_page.dart';
 import 'package:carros/utils/nav.dart';
+import 'package:carros/widgets/text_error.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
@@ -48,11 +49,8 @@ class _CarrosListViewState extends State<CarrosListView>
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           print(snapshot.error);
-          return const Center(
-            child: Text(
-              "Não foi possível buscar os carros",
-              style: TextStyle(color: Colors.red, fontSize: 22),
-            ),
+          return const TextError(
+            "Não foi possível exibir os carros"
           );
         }
 
