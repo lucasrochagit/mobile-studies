@@ -20,7 +20,7 @@ class CarroPage extends StatelessWidget {
   _body() {
     return Container(
       padding: const EdgeInsets.all(16),
-      child: Image.network(carro.urlFoto ?? ''),
+      child: Image.network(carro.urlFoto ?? 'https://www.inovegas.com.br/site/wp-content/uploads/2017/08/sem-foto.jpg'),
     );
   }
 }

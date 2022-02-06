@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:carros/external/login_api.dart';
 import 'package:carros/models/api_response.dart';
 import 'package:carros/models/usuario.dart';
@@ -24,7 +26,7 @@ class _LoginPageState extends State<LoginPage> {
 
   final _focusSenha = FocusNode();
 
-  bool _showProgress = false;
+  final _streamController = StreamController<bool>();
 
   @override
   void initState() {
@@ -77,10 +79,16 @@ class _LoginPageState extends State<LoginPage> {
               focusNode: _focusSenha,
             ),
             const SizedBox(height: 20),
-            AppButton(
-              "Login",
-              onPressed: _onClickLogin,
-              showProgress: _showProgress,
+            StreamBuilder<bool>(
+              stream: _streamController.stream,
+              initialData: false,
+              builder: (context, snapshot) {
+                return AppButton(
+                  "Login",
+                  onPressed: _onClickLogin,
+                  showProgress: snapshot.data!,
+                );
+              }
             ),
           ],
         ),
@@ -96,13 +104,10 @@ class _LoginPageState extends State<LoginPage> {
     String login = _tLogin.text;
     String senha = _tSenha.text;
 
-    setState(() {
-      _showProgress = true;
-    });
+    _streamController.add(true);
 
     ApiResponse<Usuario>? response = await LoginApi.login(login, senha);
     if (response!.ok == true) {
-      Usuario? user = response.result;
       push(context, const HomePage(), replace: true);
     } else {
       String? msg = response.msg ??
@@ -110,9 +115,7 @@ class _LoginPageState extends State<LoginPage> {
       alert(context, msg);
     }
 
-    setState(() {
-      _showProgress = false;
-    });
+    // _streamController.add(false);
   }
 
   _validateLogin(String? value) {

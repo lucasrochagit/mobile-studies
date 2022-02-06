@@ -3,7 +3,6 @@ import 'package:carros/models/carro.dart';
 import 'package:carros/pages/carro_page.dart';
 import 'package:carros/utils/nav.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
 class CarrosListView extends StatefulWidget {
   final TipoCarro tipoCarro;
