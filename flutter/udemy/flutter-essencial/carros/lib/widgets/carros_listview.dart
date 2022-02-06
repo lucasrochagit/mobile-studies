@@ -1,5 +1,7 @@
 import 'package:carros/external/carros_api.dart';
 import 'package:carros/models/carro.dart';
+import 'package:carros/pages/carro_page.dart';
+import 'package:carros/utils/nav.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
@@ -43,7 +45,7 @@ class _CarrosListViewState extends State<CarrosListView>
         }
 
         if (!snapshot.hasData) {
-          return const Center(child: const CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         }
         List<Carro>? carros = snapshot.data as List<Carro>?;
         return _listView(carros!);
@@ -93,9 +95,7 @@ class _CarrosListViewState extends State<CarrosListView>
                         children: <Widget>[
                           TextButton(
                             child: const Text('DETALHES'),
-                            onPressed: () {
-                              /* ... */
-                            },
+                            onPressed: () => _onClickDetails(c),
                           ),
                           const SizedBox(width: 8),
                           TextButton(
@@ -114,5 +114,9 @@ class _CarrosListViewState extends State<CarrosListView>
             );
           }),
     );
+  }
+
+  _onClickDetails(Carro c) {
+    push(context, CarroPage(c));
   }
 }
