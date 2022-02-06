@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:carros/bloc/login_bloc.dart';
 import 'package:carros/external/login_api.dart';
 import 'package:carros/models/api_response.dart';
 import 'package:carros/models/usuario.dart';
@@ -11,7 +12,7 @@ import 'package:carros/widgets/app_text.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
-  LoginPage({Key? key}) : super(key: key);
+  const LoginPage({Key? key}) : super(key: key);
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -19,14 +20,10 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
-
   final _tLogin = TextEditingController();
-
   final _tSenha = TextEditingController();
-
   final _focusSenha = FocusNode();
-
-  final _streamController = StreamController<bool>();
+  final _bloc = LoginBloc();
 
   @override
   void initState() {
@@ -44,7 +41,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void dispose() {
     super.dispose();
-    _streamController.close();
+    _bloc.dispose;
   }
 
   @override
@@ -86,7 +83,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
             const SizedBox(height: 20),
             StreamBuilder<bool>(
-              stream: _streamController.stream,
+              stream: _bloc.stream,
               initialData: false,
               builder: (context, snapshot) {
                 return AppButton(
@@ -110,10 +107,9 @@ class _LoginPageState extends State<LoginPage> {
     String login = _tLogin.text;
     String senha = _tSenha.text;
 
-    _streamController.add(true);
 
-    ApiResponse<Usuario>? response = await LoginApi.login(login, senha);
-    if (response!.ok == true) {
+    ApiResponse<Usuario>? response = await _bloc.login(login, senha);
+    if (response.ok == true) {
       push(context, const HomePage(), replace: true);
     } else {
       String? msg = response.msg ??
