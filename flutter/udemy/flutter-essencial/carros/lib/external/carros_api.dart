@@ -15,6 +15,8 @@ class CarrosApi {
     final Map<String, String> headers = {'Content-Type': 'application/json',
     'Authorization': 'Bearer ${user?.token ?? ''}'};
 
+    print(">>> GET $url");
+
     var response = await http.get(url, headers: headers);
     List list = json.decode(response.body);
 
