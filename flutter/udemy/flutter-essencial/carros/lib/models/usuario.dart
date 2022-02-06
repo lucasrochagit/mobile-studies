@@ -48,8 +48,15 @@ class Usuario {
     Prefs.setString("user.prefs", jsonStr);
   }
 
-  static Future<Usuario> get() async {
-    String jsonStr = await await Prefs.getString("user.prefs");
+  static void clear() {
+    Prefs.setString("user.prefs", "");
+  }
+
+  static Future<Usuario?> get() async {
+    String jsonStr = await Prefs.getString("user.prefs");
+    if (jsonStr.isEmpty) {
+      return null;
+    }
     Map<String, dynamic> result = jsonDecode(jsonStr);
     return Usuario.fromJson(result);
   }

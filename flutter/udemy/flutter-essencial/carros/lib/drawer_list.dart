@@ -19,7 +19,7 @@ class DrawerList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Future<Usuario> future = Usuario.get();
+    Future<Usuario?> future = Usuario.get();
 
     return SafeArea(
       child: Drawer(
@@ -27,7 +27,7 @@ class DrawerList extends StatelessWidget {
           children: <Widget>[
             FutureBuilder(
               future: future,
-              builder: (BuildContext context, AsyncSnapshot<Usuario> snapshot) {
+              builder: (BuildContext context, AsyncSnapshot<Usuario?> snapshot) {
                 Usuario? user = snapshot.data;
                 return user != null ? _header(user) : Container();
               },
@@ -64,6 +64,8 @@ class DrawerList extends StatelessWidget {
   }
 
   _onClickLogout(BuildContext context) {
+    Usuario.clear();
+
     alertLogout(context, () => push(context, LoginPage(), replace: true));
   }
 }
