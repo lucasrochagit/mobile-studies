@@ -1,3 +1,4 @@
+import 'package:carros/const/const.dart';
 import 'package:carros/models/carro.dart';
 import 'package:flutter/material.dart';
 
@@ -52,8 +53,46 @@ class CarroPage extends StatelessWidget {
   _body() {
     return Container(
       padding: const EdgeInsets.all(16),
-      child: Image.network(carro.urlFoto ??
-          'https://www.inovegas.com.br/site/wp-content/uploads/2017/08/sem-foto.jpg'),
+      child: ListView(
+        children: <Widget>[
+          Image.network(carro.urlFoto ?? Const.defaultCarroFoto),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    carro.nome ?? '',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(
+                    carro.tipo ?? '',
+                    style: TextStyle(
+                      fontSize: 16,
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                children: <Widget>[
+                  IconButton(
+                    onPressed: _onClickFavorito,
+                    icon: Icon(Icons.favorite, color: Colors.red, size: 40),
+                  ),
+                  IconButton(
+                    onPressed: onClickCompartilhar,
+                    icon: Icon(Icons.share, color: Colors.black, size: 40),
+                  )
+                ],
+              )
+            ],
+          )
+        ],
+      ),
     );
   }
 
@@ -76,4 +115,8 @@ class CarroPage extends StatelessWidget {
         break;
     }
   }
+
+  void _onClickFavorito() {}
+
+  void onClickCompartilhar() {}
 }
