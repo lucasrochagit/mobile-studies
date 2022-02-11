@@ -16,13 +16,13 @@ class CarroPage extends StatelessWidget {
         centerTitle: true,
         actions: <Widget>[
           IconButton(
-            onPressed: _onClickMap(),
+            onPressed: _onClickMap,
             icon: const Icon(
               Icons.place,
             ),
           ),
           IconButton(
-            onPressed: _onClickVideo(),
+            onPressed: _onClickVideo,
             icon: const Icon(
               Icons.videocam,
             ),
@@ -67,30 +67,38 @@ class CarroPage extends StatelessWidget {
                   text(carro.tipo, fontSize: 16),
                 ],
               ),
-              Row(
-                children: <Widget>[
-                  IconButton(
-                    onPressed: _onClickFavorito,
-                    icon:
-                    const Icon(Icons.favorite, color: Colors.red, size: 40),
-                  ),
-                  IconButton(
-                    onPressed: onClickCompartilhar,
-                    icon:
-                    const Icon(Icons.share, color: Colors.black, size: 40),
-                  )
-                ],
-              )
+              _bloco1(),
             ],
-          )
+          ),
+          const Divider(),
+          _bloco2()
         ],
       ),
     );
   }
 
-  _onClickMap() {}
+  Row _bloco1() {
+    return Row(
+      children: <Widget>[
+        IconButton(
+          onPressed: _onClickFavorito,
+          icon: const Icon(Icons.favorite, color: Colors.red, size: 40),
+        ),
+        IconButton(
+          onPressed: onClickCompartilhar,
+          icon: const Icon(Icons.share, color: Colors.black, size: 40),
+        )
+      ],
+    );
+  }
 
-  _onClickVideo() {}
+  _onClickMap() {
+    print("Localização");
+  }
+
+  _onClickVideo() {
+    print("Exibir Vídeo");
+  }
 
   _onClickPopupMenu(String value) {
     switch (value) {
@@ -111,4 +119,16 @@ class CarroPage extends StatelessWidget {
   void _onClickFavorito() {}
 
   void onClickCompartilhar() {}
+
+  _bloco2() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        const SizedBox(height: 20),
+        text(carro.descricao, fontSize: 16, bold: true),
+        const SizedBox(height: 20),
+        text(Const.loremIpsum, fontSize: 20)
+      ],
+    );
+  }
 }
