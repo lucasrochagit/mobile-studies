@@ -1,5 +1,6 @@
 import 'package:carros/const/const.dart';
 import 'package:carros/models/carro.dart';
+import 'package:carros/widgets/text.dart';
 import 'package:flutter/material.dart';
 
 class CarroPage extends StatelessWidget {
@@ -62,30 +63,21 @@ class CarroPage extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text(
-                    carro.nome ?? '',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Text(
-                    carro.tipo ?? '',
-                    style: TextStyle(
-                      fontSize: 16,
-                    ),
-                  ),
+                  text(carro.nome, fontSize: 20, bold: true),
+                  text(carro.tipo, fontSize: 16),
                 ],
               ),
               Row(
                 children: <Widget>[
                   IconButton(
                     onPressed: _onClickFavorito,
-                    icon: Icon(Icons.favorite, color: Colors.red, size: 40),
+                    icon:
+                    const Icon(Icons.favorite, color: Colors.red, size: 40),
                   ),
                   IconButton(
                     onPressed: onClickCompartilhar,
-                    icon: Icon(Icons.share, color: Colors.black, size: 40),
+                    icon:
+                    const Icon(Icons.share, color: Colors.black, size: 40),
                   )
                 ],
               )
