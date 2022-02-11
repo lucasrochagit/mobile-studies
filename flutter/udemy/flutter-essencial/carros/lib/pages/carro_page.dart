@@ -1,18 +1,38 @@
+import 'package:carros/bloc/loripsum_bloc.dart';
 import 'package:carros/const/const.dart';
 import 'package:carros/models/carro.dart';
 import 'package:carros/widgets/text.dart';
 import 'package:flutter/material.dart';
 
-class CarroPage extends StatelessWidget {
+class CarroPage extends StatefulWidget {
   Carro carro;
 
   CarroPage(this.carro, {Key? key}) : super(key: key);
 
   @override
+  State<CarroPage> createState() => _CarroPageState();
+}
+
+class _CarroPageState extends State<CarroPage> {
+  final _loripsumApiBlock = LoripsumBloc();
+
+  @override
+  void initState() {
+    super.initState();
+    _loripsumApiBlock.fetch();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _loripsumApiBlock.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(carro.nome ?? 'Carro'),
+        title: Text(widget.carro.nome ?? 'Carro'),
         centerTitle: true,
         actions: <Widget>[
           IconButton(
@@ -56,15 +76,15 @@ class CarroPage extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       child: ListView(
         children: <Widget>[
-          Image.network(carro.urlFoto ?? Const.defaultCarroFoto),
+          Image.network(widget.carro.urlFoto ?? Const.defaultCarroFoto),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  text(carro.nome, fontSize: 20, bold: true),
-                  text(carro.tipo, fontSize: 16),
+                  text(widget.carro.nome, fontSize: 20, bold: true),
+                  text(widget.carro.tipo, fontSize: 16),
                 ],
               ),
               _bloco1(),
@@ -125,9 +145,19 @@ class CarroPage extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         const SizedBox(height: 20),
-        text(carro.descricao, fontSize: 16, bold: true),
+        text(widget.carro.descricao, fontSize: 16, bold: true),
         const SizedBox(height: 20),
-        text(Const.loremIpsum, fontSize: 20)
+        StreamBuilder<String>(
+          stream: _loripsumApiBlock.stream,
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            return text(snapshot.data, fontSize: 16);
+          },
+        ),
       ],
     );
   }
