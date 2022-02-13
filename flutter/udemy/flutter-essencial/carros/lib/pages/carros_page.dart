@@ -55,8 +55,14 @@ class _CarrosPageState extends State<CarrosPage>
         }
 
         List<Carro>? carros = snapshot.data as List<Carro>?;
-        return CarrosListView(carros!);
+        return RefreshIndicator(
+            onRefresh: _onRefresh,
+            child: CarrosListView(carros!));
       },
     );
+  }
+
+  Future<List<Carro>?> _onRefresh() async {
+    return _bloc.fetch(tipoCarro);
   }
 }

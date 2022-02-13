@@ -12,6 +12,8 @@ class CarrosApi {
 
     Usuario? user = await Usuario.get();
 
+    print("> GET $url");
+
     final Map<String, String> headers = {'Content-Type': 'application/json',
     'Authorization': 'Bearer ${user?.token ?? ''}'};
 
