@@ -1,70 +1,17 @@
-import 'package:carros/bloc/carros_bloc.dart';
-import 'package:carros/external/carros_api.dart';
+import 'package:carros/const/const.dart';
 import 'package:carros/models/carro.dart';
 import 'package:carros/pages/carro_page.dart';
 import 'package:carros/utils/nav.dart';
-import 'package:carros/widgets/text_error.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-class CarrosListView extends StatefulWidget {
-  final TipoCarro tipoCarro;
+class CarrosListView extends StatelessWidget {
+  List<Carro> carros;
 
-  const CarrosListView({
-    this.tipoCarro = TipoCarro.esportivos,
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  State<CarrosListView> createState() => _CarrosListViewState();
-}
-
-class _CarrosListViewState extends State<CarrosListView>
-    with AutomaticKeepAliveClientMixin<CarrosListView> {
-  final CarrosBloc _bloc = CarrosBloc();
-
-  @override
-  bool get wantKeepAlive => true;
-
-  TipoCarro get tipoCarro => widget.tipoCarro;
-
-  @override
-  void initState() {
-    super.initState();
-    _bloc.fetch(tipoCarro);
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _bloc.dispose();
-  }
+  CarrosListView(this.carros, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    super.build(context);
-
-    return StreamBuilder(
-      stream: _bloc.stream,
-      builder: (context, snapshot) {
-        if (snapshot.hasError) {
-          print(snapshot.error);
-          return const TextError(
-            "Não foi possível exibir os carros"
-          );
-        }
-
-        if (!snapshot.hasData) {
-          return const Center(child: CircularProgressIndicator());
-        }
-
-        List<Carro>? carros = snapshot.data as List<Carro>?;
-        return _listView(carros!);
-      },
-    );
-  }
-
-  Container _listView(List<Carro> carros) {
     return Container(
       padding: const EdgeInsets.all(16),
       child: ListView.builder(
@@ -81,8 +28,7 @@ class _CarrosListViewState extends State<CarrosListView>
                   children: <Widget>[
                     Center(
                       child: Image.network(
-                        c.urlFoto ??
-                            "https://www.inovegas.com.br/site/wp-content/uploads/2017/08/sem-foto.jpg",
+                        c.urlFoto ?? Const.defaultCarroFoto,
                         width: 250,
                       ),
                     ),
@@ -106,7 +52,7 @@ class _CarrosListViewState extends State<CarrosListView>
                         children: <Widget>[
                           TextButton(
                             child: const Text('DETALHES'),
-                            onPressed: () => _onClickDetails(c),
+                            onPressed: () => _onClickDetails(context, c),
                           ),
                           const SizedBox(width: 8),
                           TextButton(
@@ -127,7 +73,7 @@ class _CarrosListViewState extends State<CarrosListView>
     );
   }
 
-  _onClickDetails(Carro c) {
+  _onClickDetails(BuildContext context, Carro c) {
     push(context, CarroPage(c));
   }
 }
