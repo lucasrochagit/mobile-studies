@@ -1,7 +1,9 @@
 import 'package:carros/bloc/loripsum_bloc.dart';
 import 'package:carros/const/const.dart';
 import 'package:carros/models/carro.dart';
+import 'package:carros/pages/carro_form_page.dart';
 import 'package:carros/service/favorito_service.dart';
+import 'package:carros/utils/nav.dart';
 import 'package:carros/widgets/text.dart';
 import 'package:flutter/material.dart';
 
@@ -143,7 +145,7 @@ class _CarroPageState extends State<CarroPage> {
   _onClickPopupMenu(String value) {
     switch (value) {
       case "Editar":
-        print("Editar!!");
+        _onClickEditar();
         break;
       case "Deletar":
         print("Deletar!!");
@@ -186,5 +188,9 @@ class _CarroPageState extends State<CarroPage> {
         ),
       ],
     );
+  }
+
+  _onClickEditar() {
+    push(context, CarroFormPage(carro: carro));
   }
 }
