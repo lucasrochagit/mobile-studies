@@ -21,12 +21,6 @@ class CarrosApi {
     var response = await http.get(url, headers: headers);
     List list = json.decode(response.body);
 
-    List<Carro> carros = list.map<Carro>((map) => Carro.fromJson(map)).toList();
-
-    final dao = CarroDAO();
-
-    carros.forEach(dao.save);
-
-    return carros;
+    return list.map<Carro>((map) => Carro.fromJson(map)).toList();
   }
 }
