@@ -1,8 +1,9 @@
 import 'dart:convert';
 
+import 'package:carros/models/entity.dart';
 import 'package:carros/utils/prefs.dart';
 
-class Usuario {
+class Usuario extends Entity {
   int? id;
   String? login;
   String? nome;
@@ -30,20 +31,21 @@ class Usuario {
     roles = json['roles'].cast<String>();
   }
 
-  Map<String, dynamic> toJson() {
+  @override
+  Map<String, dynamic> toMap() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = this.id;
-    data['login'] = this.login;
-    data['nome'] = this.nome;
-    data['email'] = this.email;
-    data['urlFoto'] = this.urlFoto;
-    data['token'] = this.token;
-    data['roles'] = this.roles;
+    data['id'] = id;
+    data['login'] = login;
+    data['nome'] = nome;
+    data['email'] = email;
+    data['urlFoto'] = urlFoto;
+    data['token'] = token;
+    data['roles'] = roles;
     return data;
   }
 
   void save() {
-    Map map = toJson();
+    Map map = toMap();
     String jsonStr = jsonEncode(map);
     Prefs.setString("user.prefs", jsonStr);
   }
