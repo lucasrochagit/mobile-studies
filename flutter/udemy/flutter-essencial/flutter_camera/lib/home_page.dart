@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_camera/upload_service.dart';
 import 'package:image_picker/image_picker.dart';
 
 class HomePage extends StatefulWidget {
@@ -20,6 +21,15 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         centerTitle: true,
         title: const Text("Hello Camera"),
+        actions: <Widget>[
+          IconButton(
+            onPressed: _onClickUpload,
+            icon: const Icon(
+              Icons.file_upload,
+              color: Colors.white,
+            ),
+          ),
+        ],
       ),
       body: Center(
         child: Column(
@@ -57,9 +67,15 @@ class _HomePageState extends State<HomePage> {
 
   _onClickCamera() async {
     print("Camera!");
-    var image = await _picker.pickImage(source: ImageSource.camera);
+    var image = await _picker.pickImage(source: ImageSource.gallery);
     setState(() {
-      this._file = image;
+      _file = image;
     });
+  }
+
+  void _onClickUpload() {
+    if(_file != null) {
+      UploadService.uploadFile(File(_file!.path));
+    }
   }
 }
