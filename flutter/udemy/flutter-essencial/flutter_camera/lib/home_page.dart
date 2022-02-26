@@ -30,9 +30,9 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _onClickCamera(),
+        onPressed: _onClickCamera,
         tooltip: 'Increment',
-        child: const Icon(Icons.add),
+        child: const Icon(Icons.camera_alt),
       ),
     );
   }
