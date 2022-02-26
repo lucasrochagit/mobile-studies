@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carros/models/carro.dart';
 import 'package:carros/widgets/app_button.dart';
+import 'package:carros/widgets/app_text.dart';
 import 'package:flutter/material.dart';
 
 class CarroFormPage extends StatefulWidget {
@@ -84,37 +85,26 @@ class _CarroFormPageState extends State<CarroFormPage> {
           ),
           _radioTipo(),
           const Divider(),
-          TextFormField(
+          AppText(
+            'Nome',
+            '',
             controller: tNome,
             keyboardType: TextInputType.text,
             validator: _validateNome,
-            style: const TextStyle(color: Colors.blue, fontSize: 20),
-            decoration: const InputDecoration(
-              hintText: '',
-              labelText: 'Nome',
-            ),
           ),
-          TextFormField(
+          const Divider(),
+          AppText(
+            'Descrição',
+            '',
             controller: tDesc,
             keyboardType: TextInputType.text,
-            style: const TextStyle(
-              color: Colors.blue,
-              fontSize: 20,
-            ),
-            decoration: const InputDecoration(
-              hintText: '',
-              labelText: 'Descrição',
-            ),
           ),
-          Container(
-            height: 50,
-            margin: const EdgeInsets.only(top: 20.0),
-            child: AppButton(
-              "Salvar",
-              onPressed: _onClickSalvar,
-              showProgress: _showProgress,
-            ),
-          )
+          const Divider(),
+          AppButton(
+            "Salvar",
+            onPressed: _onClickSalvar,
+            showProgress: _showProgress,
+          ),
         ],
       ),
     );
