@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-alert(BuildContext context, String msg) {
+alert(BuildContext context, String msg, {Function? callback}) {
   showDialog(
       barrierDismissible: false,
       // only click on alert dialog options to close
@@ -15,6 +15,9 @@ alert(BuildContext context, String msg) {
               TextButton(
                 onPressed: () {
                   Navigator.pop(context);
+                  if (callback != null) {
+                    callback();
+                  }
                 },
                 child: const Text('Ok'),
               )

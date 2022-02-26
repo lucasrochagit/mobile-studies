@@ -13,6 +13,6 @@ Future push(BuildContext context, Widget page, {bool replace = false}) {
   }));
 }
 
-void pop(BuildContext context, dynamic result) {
+void pop(BuildContext context, {dynamic result}) {
   Navigator.pop(context, result);
 }
