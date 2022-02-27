@@ -6,9 +6,9 @@ import 'package:carros/models/carro.dart';
 import 'package:carros/widgets/carros_listview.dart';
 import 'package:carros/widgets/text_error.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class FavoritosPage extends StatefulWidget {
-
   const FavoritosPage({
     Key? key,
   }) : super(key: key);
@@ -19,19 +19,20 @@ class FavoritosPage extends StatefulWidget {
 
 class _FavoritosPageState extends State<FavoritosPage>
     with AutomaticKeepAliveClientMixin<FavoritosPage> {
-
   @override
   bool get wantKeepAlive => true;
 
   @override
   void initState() {
     super.initState();
+    FavoritosBloc favoritosBloc = Provider.of<FavoritosBloc>(context);
     favoritosBloc.fetch();
   }
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
+    FavoritosBloc favoritosBloc = Provider.of<FavoritosBloc>(context);
 
     return StreamBuilder(
       stream: favoritosBloc.stream,
@@ -47,13 +48,12 @@ class _FavoritosPageState extends State<FavoritosPage>
 
         List<Carro>? carros = snapshot.data as List<Carro>?;
         return RefreshIndicator(
-            onRefresh: _onRefresh,
-            child: CarrosListView(carros!));
+            onRefresh: _onRefresh, child: CarrosListView(carros!));
       },
     );
   }
 
   Future<List<Carro>?> _onRefresh() async {
-    return favoritosBloc.fetch();
+    return Provider.of<FavoritosBloc>(context).fetch();
   }
 }
