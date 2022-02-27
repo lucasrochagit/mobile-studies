@@ -5,6 +5,7 @@ import 'package:carros/pages/carro_page.dart';
 import 'package:carros/utils/nav.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:share_plus/share_plus.dart';
 
 class CarrosListView extends StatelessWidget {
   List<Carro> carros;
@@ -120,5 +121,7 @@ class CarrosListView extends StatelessWidget {
 
   void _onClickShare(BuildContext context, Carro c) {
     print("Compartilhando carro ${c.nome}");
+
+    Share.share(c.urlFoto!);
   }
 }
