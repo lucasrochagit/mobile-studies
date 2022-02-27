@@ -9,6 +9,7 @@ import 'package:carros/utils/alert.dart';
 import 'package:carros/utils/nav.dart';
 import 'package:carros/widgets/text.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CarroPage extends StatefulWidget {
   Carro carro;
@@ -143,6 +144,15 @@ class _CarroPageState extends State<CarroPage> {
 
   _onClickVideo() {
     print("Exibir Vídeo");
+    if (carro.urlVideo != null && carro.urlVideo!.isNotEmpty) {
+      launch(carro.urlVideo!);
+    } else {
+      alert(
+        context,
+        'Esse carro não possui nenhum vídeo',
+        title: 'Erro',
+      );
+    }
   }
 
   _onClickPopupMenu(String value) {
