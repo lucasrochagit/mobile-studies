@@ -1,5 +1,6 @@
 import 'package:carros/db/dao/carro_dao.dart';
 import 'package:carros/db/dao/favorito_dao.dart';
+import 'package:carros/main.dart';
 import 'package:carros/models/carro.dart';
 import 'package:carros/models/favorito.dart';
 
@@ -14,10 +15,14 @@ class FavoritoService {
       // remove dos favoritos
       print("Remove ${c.id} dos favoritos");
       dao.delete(c.id!);
+      favoritosBloc.fetch();
+
     } else {
       print("Add ${c.id} dos favoritos");
       // adiciona aos favoritos
       dao.save(f);
+      favoritosBloc.fetch();
+
     }
     return !exists;
   }
