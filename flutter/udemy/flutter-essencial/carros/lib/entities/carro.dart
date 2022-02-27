@@ -1,4 +1,4 @@
-import 'package:carros/models/entity.dart';
+import 'package:carros/entities/entity.dart';
 
 class Carro extends Entity {
   int? id;

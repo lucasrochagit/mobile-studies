@@ -1,5 +1,5 @@
 import 'package:carros/db/dao/base_dao.dart';
-import 'package:carros/models/favorito.dart';
+import 'package:carros/entities/favorito.dart';
 
 class FavoritoDAO extends BaseDAO<Favorito> {
   @override

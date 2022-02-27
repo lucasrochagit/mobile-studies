@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carros/external/carros_api.dart';
-import 'package:carros/models/api_response.dart';
-import 'package:carros/models/carro.dart';
+import 'package:carros/entities/api_response.dart';
+import 'package:carros/entities/carro.dart';
 import 'package:carros/utils/alert.dart';
 import 'package:carros/utils/nav.dart';
 import 'package:carros/widgets/app_button.dart';

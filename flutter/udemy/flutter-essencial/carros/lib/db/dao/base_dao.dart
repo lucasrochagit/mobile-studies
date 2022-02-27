@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:carros/db/db_helper.dart';
-import 'package:carros/models/entity.dart';
+import 'package:carros/entities/entity.dart';
 import 'package:sqflite/sqflite.dart';
 
 // Data Access Object

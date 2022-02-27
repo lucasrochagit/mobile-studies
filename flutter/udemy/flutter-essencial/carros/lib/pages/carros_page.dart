@@ -1,6 +1,6 @@
 import 'package:carros/bloc/carros_bloc.dart';
 import 'package:carros/external/carros_api.dart';
-import 'package:carros/models/carro.dart';
+import 'package:carros/entities/carro.dart';
 import 'package:carros/widgets/carros_listview.dart';
 import 'package:carros/widgets/text_error.dart';
 import 'package:flutter/material.dart';

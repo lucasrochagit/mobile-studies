@@ -1,5 +1,5 @@
-import 'package:carros/models/carro.dart';
-import 'package:carros/models/entity.dart';
+import 'package:carros/entities/carro.dart';
+import 'package:carros/entities/entity.dart';
 
 class Favorito extends Entity {
   int? id;

@@ -1,8 +1,7 @@
+import 'package:carros/models/favoritos_model.dart';
 import 'package:carros/pages/splash_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import 'bloc/favoritos_bloc.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,9 +14,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        Provider<FavoritosBloc>(
-            create: (context) => FavoritosBloc(),
-            dispose: (context, bloc) => bloc.dispose())
+        ChangeNotifierProvider<FavoritosModel>(
+          create: (context) => FavoritosModel(),
+        )
       ],
       child: MaterialApp(
         title: 'Flutter Demo',

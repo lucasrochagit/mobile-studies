@@ -1,4 +1,4 @@
-import 'package:carros/models/usuario.dart';
+import 'package:carros/entities/usuario.dart';
 import 'package:carros/pages/login_page.dart';
 import 'package:carros/utils/alert.dart';
 import 'package:carros/utils/nav.dart';

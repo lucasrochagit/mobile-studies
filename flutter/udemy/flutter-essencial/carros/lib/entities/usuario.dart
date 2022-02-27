@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:carros/models/entity.dart';
+import 'package:carros/entities/entity.dart';
 import 'package:carros/utils/prefs.dart';
 
 class Usuario extends Entity {

@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:carros/bloc/simple_bloc.dart';
 import 'package:carros/db/dao/carro_dao.dart';
 import 'package:carros/external/carros_api.dart';
-import 'package:carros/models/carro.dart';
+import 'package:carros/entities/carro.dart';
 import 'package:carros/utils/network.dart';
 
 class CarrosBloc extends SimpleBloc<List<Carro>> {

@@ -1,8 +1,8 @@
 import 'package:carros/bloc/loripsum_bloc.dart';
 import 'package:carros/const/const.dart';
 import 'package:carros/external/carros_api.dart';
-import 'package:carros/models/api_response.dart';
-import 'package:carros/models/carro.dart';
+import 'package:carros/entities/api_response.dart';
+import 'package:carros/entities/carro.dart';
 import 'package:carros/pages/carro_form_page.dart';
 import 'package:carros/service/favorito_service.dart';
 import 'package:carros/utils/alert.dart';

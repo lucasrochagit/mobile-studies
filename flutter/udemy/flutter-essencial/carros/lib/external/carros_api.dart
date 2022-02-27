@@ -2,9 +2,8 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:carros/external/upload_api.dart';
-import 'package:carros/models/api_response.dart';
-import 'package:carros/models/carro.dart';
-import 'package:carros/models/usuario.dart';
+import 'package:carros/entities/api_response.dart';
+import 'package:carros/entities/carro.dart';
 import 'package:carros/utils/http_helper.dart' as http;
 
 enum TipoCarro { classicos, esportivos, luxo }

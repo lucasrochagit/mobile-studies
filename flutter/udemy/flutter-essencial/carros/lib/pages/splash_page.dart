@@ -1,5 +1,5 @@
 import 'package:carros/db/db_helper.dart';
-import 'package:carros/models/usuario.dart';
+import 'package:carros/entities/usuario.dart';
 import 'package:carros/pages/login_page.dart';
 import 'package:carros/utils/nav.dart';
 import 'package:flutter/material.dart';

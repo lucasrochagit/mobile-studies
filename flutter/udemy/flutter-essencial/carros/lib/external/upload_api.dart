@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:carros/models/api_response.dart';
+import 'package:carros/entities/api_response.dart';
 import 'package:carros/utils/http_helper.dart' as http;
 import 'package:http/http.dart';
 import 'package:path/path.dart' as path;

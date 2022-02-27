@@ -1,4 +1,4 @@
-import 'package:carros/models/usuario.dart';
+import 'package:carros/entities/usuario.dart';
 import 'package:http/http.dart' as http;
 
 Future<http.Response> get(String url) async {

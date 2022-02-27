@@ -3,8 +3,8 @@ import 'dart:ffi';
 
 import 'package:carros/bloc/simple_bloc.dart';
 import 'package:carros/external/login_api.dart';
-import 'package:carros/models/api_response.dart';
-import 'package:carros/models/usuario.dart';
+import 'package:carros/entities/api_response.dart';
+import 'package:carros/entities/usuario.dart';
 
 class LoginBloc extends BooleanBlock {
   Future<ApiResponse<Usuario>> login(String login, String senha) async {
