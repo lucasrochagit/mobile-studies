@@ -81,12 +81,22 @@ class CarrosListView extends StatelessWidget {
 
   _onLongClickDetails(BuildContext context, Carro c) {
     print("Clique longo!! ${c.nome}");
-    showDialog(
+    showModalBottomSheet(
         context: context,
         builder: (context) {
-          return SimpleDialog(
-            title: Text(c.nome!),
+          return Column(
+            mainAxisSize: MainAxisSize.min,
             children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(12),
+                child: Text(
+                  c.nome!,
+                  style: const TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
               ListTile(
                 title: const Text("Detalhes"),
                 leading: const Icon(Icons.directions_car),
