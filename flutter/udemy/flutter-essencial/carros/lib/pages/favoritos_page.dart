@@ -39,7 +39,7 @@ class _FavoritosPageState extends State<FavoritosPage>
     if (carros.isEmpty) {
       return const Center(
         child: Text(
-          "Nenhum carro nso favoritos",
+          "Nenhum carro nos favoritos",
           style: TextStyle(
             fontSize: 20,
           ),

@@ -20,53 +20,54 @@ class CarrosListView extends StatelessWidget {
           itemBuilder: (context, index) {
             Carro c = carros[index];
 
-            return Card(
-              color: Colors.grey[100],
-              child: Container(
-                padding: const EdgeInsets.all(10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Center(
-                      child: CachedNetworkImage(
-                        imageUrl: c.urlFoto ?? Const.defaultCarroFoto,
-                        width: 250,
+            return InkWell(
+              onTap: () => _onClickDetails(context, c),
+              onLongPress: () => _onLongClickDetails(context, c),
+              child: Card(
+                color: Colors.grey[100],
+                child: Container(
+                  padding: const EdgeInsets.all(10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Center(
+                        child: CachedNetworkImage(
+                          imageUrl: c.urlFoto ?? Const.defaultCarroFoto,
+                          width: 250,
+                        ),
                       ),
-                    ),
-                    Text(
-                      c.nome ?? "Carro Não Identificado",
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                        fontSize: 22,
+                      Text(
+                        c.nome ?? "Carro Não Identificado",
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          fontSize: 22,
+                        ),
                       ),
-                    ),
-                    const Text(
-                      'Descrição....',
-                      style: TextStyle(
-                        fontSize: 16,
+                      const Text(
+                        'Descrição....',
+                        style: TextStyle(
+                          fontSize: 16,
+                        ),
                       ),
-                    ),
-                    ButtonBarTheme(
-                      data: ButtonBarTheme.of(context),
-                      child: ButtonBar(
-                        children: <Widget>[
-                          TextButton(
-                            child: const Text('DETALHES'),
-                            onPressed: () => _onClickDetails(context, c),
-                          ),
-                          const SizedBox(width: 8),
-                          TextButton(
-                            child: const Text('COMPARTILHAR'),
-                            onPressed: () {
-                              /* ... */
-                            },
-                          ),
-                          const SizedBox(width: 8),
-                        ],
-                      ),
-                    )
-                  ],
+                      ButtonBarTheme(
+                        data: ButtonBarTheme.of(context),
+                        child: ButtonBar(
+                          children: <Widget>[
+                            TextButton(
+                              child: const Text('DETALHES'),
+                              onPressed: () => _onClickDetails(context, c),
+                            ),
+                            const SizedBox(width: 8),
+                            TextButton(
+                                child: const Text('COMPARTILHAR'),
+                                onPressed: () => _onClickShare(context, c)),
+                            const SizedBox(width: 8),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
             );
@@ -76,5 +77,38 @@ class CarrosListView extends StatelessWidget {
 
   _onClickDetails(BuildContext context, Carro c) {
     push(context, CarroPage(c));
+  }
+
+  _onLongClickDetails(BuildContext context, Carro c) {
+    print("Clique longo!! ${c.nome}");
+    showDialog(
+        context: context,
+        builder: (context) {
+          return SimpleDialog(
+            title: Text(c.nome!),
+            children: <Widget>[
+              ListTile(
+                title: const Text("Detalhes"),
+                leading: const Icon(Icons.directions_car),
+                onTap: () {
+                  pop(context);
+                  _onClickDetails(context, c);
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.share),
+                title: const Text("Compartilhar"),
+                onTap: () {
+                  pop(context);
+                  _onClickShare(context, c);
+                },
+              ),
+            ],
+          );
+        });
+  }
+
+  void _onClickShare(BuildContext context, Carro c) {
+    print("Compartilhando carro ${c.nome}");
   }
 }
