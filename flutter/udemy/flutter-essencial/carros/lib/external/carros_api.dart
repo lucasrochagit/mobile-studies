@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'dart:io';
 
+import 'package:carros/external/upload_api.dart';
 import 'package:carros/models/api_response.dart';
 import 'package:carros/models/carro.dart';
 import 'package:carros/models/usuario.dart';
@@ -17,9 +19,19 @@ class CarrosApi {
     return list.map<Carro>((map) => Carro.fromJson(map)).toList();
   }
 
-  static Future<ApiResponse<bool>> save(Carro c) async {
+  static Future<ApiResponse<bool>> save(Carro c, File? file) async {
     try {
       String url = 'http://carros-springboot.herokuapp.com/api/v2/carros';
+
+      if (file != null) {
+        ApiResponse<String> response = await UploadApi.upload(file);
+        if (response.ok!) {
+          String urlFoto = response.result!;
+          print(">> URLFOTO $urlFoto");
+          c.urlFoto = urlFoto;
+        }
+      }
+
       String body = json.encode(c.toMap());
       print("> POST $url");
       var response = await http.post(url, body: body);

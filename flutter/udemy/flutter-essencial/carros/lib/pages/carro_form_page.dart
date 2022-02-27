@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carros/external/carros_api.dart';
 import 'package:carros/models/api_response.dart';
@@ -7,6 +9,7 @@ import 'package:carros/utils/nav.dart';
 import 'package:carros/widgets/app_button.dart';
 import 'package:carros/widgets/app_text.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class CarroFormPage extends StatefulWidget {
   final Carro? carro;
@@ -18,6 +21,7 @@ class CarroFormPage extends StatefulWidget {
 }
 
 class _CarroFormPageState extends State<CarroFormPage> {
+  final ImagePicker _picker = ImagePicker();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   final tNome = TextEditingController();
@@ -27,6 +31,8 @@ class _CarroFormPageState extends State<CarroFormPage> {
   int _radioIndex = 0;
 
   bool _showProgress = false;
+
+  File? _file;
 
   Carro? get carro => widget.carro;
 
@@ -115,14 +121,23 @@ class _CarroFormPageState extends State<CarroFormPage> {
   }
 
   _headerFoto() {
-    return carro?.urlFoto != null
-        ? CachedNetworkImage(
-            imageUrl: (carro?.urlFoto)!,
-          )
-        : Image.asset(
-            "assets/images/camera.png",
-            height: 150,
-          );
+    return InkWell(
+      onTap: onClickFoto,
+      child: _file != null
+          ? Image.file(
+              _file!,
+              height: 150,
+            )
+          : carro?.urlFoto != null
+              ? CachedNetworkImage(
+                  imageUrl: (carro?.urlFoto)!,
+                  height: 150,
+                )
+              : Image.asset(
+                  "assets/images/camera.png",
+                  height: 150,
+                ),
+    );
   }
 
   _radioTipo() {
@@ -211,8 +226,9 @@ class _CarroFormPageState extends State<CarroFormPage> {
 
     print("Salvar o carro $c");
 
-    ApiResponse<bool> response =
-        c.id != null ? await CarrosApi.update(c) : await CarrosApi.save(c);
+    ApiResponse<bool> response = c.id != null
+        ? await CarrosApi.update(c)
+        : await CarrosApi.save(c, _file!);
     if (response.ok!) {
       alert(
         context,
@@ -228,5 +244,15 @@ class _CarroFormPageState extends State<CarroFormPage> {
     });
 
     print("Fim.");
+  }
+
+  void onClickFoto() async {
+    print('Foto!!');
+    var pickerFile = await _picker.pickImage(source: ImageSource.gallery);
+    if (pickerFile != null) {
+      setState(() {
+        _file = File(pickerFile.path);
+      });
+    }
   }
 }
