@@ -4,6 +4,7 @@ import 'package:carros/external/carros_api.dart';
 import 'package:carros/entities/api_response.dart';
 import 'package:carros/entities/carro.dart';
 import 'package:carros/pages/carro_form_page.dart';
+import 'package:carros/pages/video_page.dart';
 import 'package:carros/service/favorito_service.dart';
 import 'package:carros/utils/alert.dart';
 import 'package:carros/utils/nav.dart';
@@ -145,7 +146,8 @@ class _CarroPageState extends State<CarroPage> {
   _onClickVideo() {
     print("Exibir Vídeo");
     if (carro.urlVideo != null && carro.urlVideo!.isNotEmpty) {
-      launch(carro.urlVideo!);
+      // launch(carro.urlVideo!);
+      push(context, VideoPage(carro));
     } else {
       alert(
         context,
