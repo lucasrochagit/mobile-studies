@@ -29,11 +29,13 @@ class _CarroPageState extends State<CarroPage> {
 
   Carro get carro => widget.carro;
 
+  final _service = FavoritoService();
+
   @override
   void initState() {
     super.initState();
 
-    FavoritoService.isFavorite(carro).then((fav) {
+    _service.isFavorite(carro).then((fav) {
       setState(() {
         favColor = fav ? Colors.red : Colors.grey;
       });
@@ -184,7 +186,7 @@ class _CarroPageState extends State<CarroPage> {
   }
 
   void _onClickFavorito() async {
-    bool fav = await FavoritoService.favoritar(context, carro);
+    bool fav = await _service.favoritar(carro);
 
     setState(() {
       favColor = fav ? Colors.red : Colors.grey;

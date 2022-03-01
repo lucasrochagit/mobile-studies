@@ -1,4 +1,5 @@
 import 'package:carros/entities/carro.dart';
+import 'package:carros/service/favorito_service.dart';
 import 'package:carros/widgets/carros_listview.dart';
 import 'package:carros/widgets/text_error.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -28,7 +29,7 @@ class _FavoritosPageState extends State<FavoritosPage>
     super.build(context);
 
     return StreamBuilder<QuerySnapshot>(
-      stream: FirebaseFirestore.instance.collection('carros').snapshots(),
+      stream: FavoritoService().stream,
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           print(snapshot.error);
