@@ -228,7 +228,7 @@ class _CarroFormPageState extends State<CarroFormPage> {
 
     ApiResponse<bool> response = c.id != null
         ? await CarrosApi.update(c)
-        : await CarrosApi.save(c, _file!);
+        : await CarrosApi.save(c, _file);
     if (response.ok!) {
       alert(
         context,

@@ -1,4 +1,5 @@
 import 'package:carros/entities/entity.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class Carro extends Entity {
   int? id;
@@ -43,5 +44,12 @@ class Carro extends Entity {
     data['latitude'] = latitude;
     data['longitude'] = longitude;
     return data;
+  }
+
+  LatLng latLng() {
+    return LatLng(
+      latitude == null ? 0.0 : double.parse(latitude!),
+      longitude == null ? 0.0 : double.parse(longitude!),
+    );
   }
 }

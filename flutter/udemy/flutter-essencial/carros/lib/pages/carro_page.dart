@@ -4,6 +4,7 @@ import 'package:carros/external/carros_api.dart';
 import 'package:carros/entities/api_response.dart';
 import 'package:carros/entities/carro.dart';
 import 'package:carros/pages/carro_form_page.dart';
+import 'package:carros/pages/mapa_page.dart';
 import 'package:carros/pages/video_page.dart';
 import 'package:carros/service/favorito_service.dart';
 import 'package:carros/utils/alert.dart';
@@ -55,7 +56,7 @@ class _CarroPageState extends State<CarroPage> {
         centerTitle: true,
         actions: <Widget>[
           IconButton(
-            onPressed: _onClickMap,
+            onPressed: () => _onClickMap(context),
             icon: const Icon(
               Icons.place,
             ),
@@ -139,8 +140,17 @@ class _CarroPageState extends State<CarroPage> {
     );
   }
 
-  _onClickMap() {
-    print("Localização");
+  _onClickMap(context) {
+    if (carro.latitude != null && carro.longitude != null) {
+      print("Localização");
+      push(context, MapaPage(carro));
+    } else {
+      alert(
+        context,
+        "Esse caro não possui dados de localização",
+        title: "Erro",
+      );
+    }
   }
 
   _onClickVideo() {
