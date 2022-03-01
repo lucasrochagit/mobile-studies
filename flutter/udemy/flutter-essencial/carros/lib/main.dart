@@ -1,9 +1,13 @@
+import 'package:carros/firebase_config.dart';
 import 'package:carros/models/favoritos_model.dart';
 import 'package:carros/pages/splash_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseConfig.platformOptions);
   runApp(const MyApp());
 }
 

@@ -1,9 +1,8 @@
 import 'package:carros/entities/carro.dart';
-import 'package:carros/models/favoritos_model.dart';
 import 'package:carros/widgets/carros_listview.dart';
 import 'package:carros/widgets/text_error.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class FavoritosPage extends StatefulWidget {
   const FavoritosPage({
@@ -22,37 +21,30 @@ class _FavoritosPageState extends State<FavoritosPage>
   @override
   void initState() {
     super.initState();
-    FavoritosModel model = Provider.of<FavoritosModel>(
-      context,
-      listen: false,
-    );
-    model.getCarros();
   }
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    FavoritosModel model = Provider.of<FavoritosModel>(context);
 
-    List<Carro> carros = model.carros;
+    return StreamBuilder<QuerySnapshot>(
+      stream: FirebaseFirestore.instance.collection('carros').snapshots(),
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          print(snapshot.error);
+          return const TextError("Não foi possível exibir os carros");
+        }
 
-    if (carros.isEmpty) {
-      return const Center(
-        child: Text(
-          "Nenhum carro nos favoritos",
-          style: TextStyle(
-            fontSize: 20,
-          ),
-        ),
-      );
-    }
-    return RefreshIndicator(
-      onRefresh: _onRefresh,
-      child: CarrosListView(carros),
+        if (!snapshot.hasData) {
+          return const Center(child: CircularProgressIndicator());
+        }
+
+        List<Carro>? carros =
+            snapshot.data?.docs.map((QueryDocumentSnapshot doc) {
+          return Carro.fromJson(doc.data() as Map<String, dynamic>);
+        }).toList();
+        return CarrosListView(carros!);
+      },
     );
-  }
-
-  Future<List<Carro>> _onRefresh() async {
-    return Provider.of<FavoritosModel>(context, listen: false).getCarros();
   }
 }
