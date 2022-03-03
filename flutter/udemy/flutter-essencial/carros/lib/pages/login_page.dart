@@ -1,7 +1,4 @@
-import 'dart:async';
-
 import 'package:carros/bloc/login_bloc.dart';
-import 'package:carros/external/login_api.dart';
 import 'package:carros/entities/api_response.dart';
 import 'package:carros/entities/usuario.dart';
 import 'package:carros/pages/home_page.dart';
@@ -9,6 +6,7 @@ import 'package:carros/utils/alert.dart';
 import 'package:carros/utils/nav.dart';
 import 'package:carros/widgets/app_button.dart';
 import 'package:carros/widgets/app_text.dart';
+import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -24,6 +22,7 @@ class _LoginPageState extends State<LoginPage> {
   final _tSenha = TextEditingController();
   final _focusSenha = FocusNode();
   final _bloc = LoginBloc();
+  final FirebaseRemoteConfig remoteConfig = FirebaseRemoteConfig.instance;
 
   @override
   void initState() {

@@ -1,9 +1,9 @@
 import 'package:carros/firebase_config.dart';
 import 'package:carros/pages/splash_page.dart';
 import 'package:carros/utils/firebase.dart';
-import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:firebase_remote_config/firebase_remote_config.dart';
+import 'package:flutter/material.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,7 +25,29 @@ class MyApp extends StatelessWidget {
         brightness: Brightness.light,
         scaffoldBackgroundColor: Colors.white,
       ),
-      home: const SplashPage(),
+      home: FutureBuilder<FirebaseRemoteConfig>(
+        future: setupRemoteConfig(),
+        builder: (BuildContext context,
+            AsyncSnapshot<FirebaseRemoteConfig> snapshot) {
+          return snapshot.hasData ? const SplashPage() : Container();
+        },
+      ),
     );
   }
+}
+
+Future<FirebaseRemoteConfig> setupRemoteConfig() async {
+  final FirebaseRemoteConfig remoteConfig = FirebaseRemoteConfig.instance;
+  await remoteConfig.setConfigSettings(RemoteConfigSettings(
+    fetchTimeout: const Duration(seconds: 10),
+    minimumFetchInterval: const Duration(hours: 1),
+  ));
+  // await remoteConfig.setDefaults(<String, dynamic>{
+  //   'welcome': 'default welcome',
+  //   'hello': 'default hello',
+  // });
+  // RemoteConfigValue(null, ValueSource.valueStatic);
+  final mensagem = remoteConfig.getString('mensagem');
+  print(">>>> Mensagem: $mensagem");
+  return remoteConfig;
 }
