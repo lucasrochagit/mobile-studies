@@ -23,8 +23,25 @@ Future<void> initFcm() async {
     print('Got a message whilst in the foreground!');
     print('Message data: ${message.data}');
 
+    String nome = message.data['nome'];
+    print("onMessage: $nome");
+
     if (message.notification != null) {
       print('Message also contained a notification: ${message.notification}');
     }
   });
+
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+}
+
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  print('Got a message whilst in the background!');
+  print('Message data: ${message.data}');
+
+  String nome = message.data['nome'];
+  print("onMessage: $nome");
+
+  if (message.notification != null) {
+    print('Message also contained a notification: ${message.notification}');
+  }
 }
