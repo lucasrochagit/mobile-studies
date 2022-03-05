@@ -1,5 +1,6 @@
 import 'package:carros/entities/usuario.dart';
 import 'package:carros/pages/login_page.dart';
+import 'package:carros/pages/site_page.dart';
 import 'package:carros/utils/alert.dart';
 import 'package:carros/utils/nav.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +28,8 @@ class DrawerList extends StatelessWidget {
           children: <Widget>[
             FutureBuilder(
               future: future,
-              builder: (BuildContext context, AsyncSnapshot<Usuario?> snapshot) {
+              builder:
+                  (BuildContext context, AsyncSnapshot<Usuario?> snapshot) {
                 Usuario? user = snapshot.data;
                 return user != null ? _header(user) : Container();
               },
@@ -53,6 +55,13 @@ class DrawerList extends StatelessWidget {
               },
             ),
             ListTile(
+              onTap: () {
+                _onCLickSite(context);
+              },
+              title: const Text("Visite o site"),
+              leading: const Icon(Icons.web),
+            ),
+            ListTile(
               leading: const Icon(Icons.exit_to_app),
               title: const Text("Logout"),
               onTap: () => _onClickLogout(context),
@@ -66,6 +75,11 @@ class DrawerList extends StatelessWidget {
   _onClickLogout(BuildContext context) {
     Usuario.clear();
 
-    alertLogout(context, () => push(context, LoginPage(), replace: true));
+    alertLogout(context, () => push(context, const LoginPage(), replace: true));
+  }
+
+  void _onCLickSite(BuildContext context) {
+    pop(context);
+    push(context, SitePage());
   }
 }

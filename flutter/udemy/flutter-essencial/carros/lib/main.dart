@@ -29,7 +29,11 @@ class MyApp extends StatelessWidget {
         future: setupRemoteConfig(),
         builder: (BuildContext context,
             AsyncSnapshot<FirebaseRemoteConfig> snapshot) {
-          return snapshot.hasData ? const SplashPage() : Container();
+          if (snapshot.hasData) {
+            final mensagem = snapshot.data?.getString("mensagem");
+            print(">>> Mensagem: $mensagem <<<");
+          }
+          return const SplashPage();
         },
       ),
     );
@@ -47,7 +51,5 @@ Future<FirebaseRemoteConfig> setupRemoteConfig() async {
   //   'hello': 'default hello',
   // });
   // RemoteConfigValue(null, ValueSource.valueStatic);
-  final mensagem = remoteConfig.getString('mensagem');
-  print(">>>> Mensagem: $mensagem");
   return remoteConfig;
 }
