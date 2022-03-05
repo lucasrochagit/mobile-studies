@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-class SitePage extends StatelessWidget {
+class SitePage extends StatefulWidget {
+  SitePage({Key? key}) : super(key: key);
+
+  @override
+  State<SitePage> createState() => _SitePageState();
+}
+
+class _SitePageState extends State<SitePage> {
   WebViewController? controller;
 
-  SitePage({Key? key}) : super(key: key);
+  var _stackIdx = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -23,22 +30,43 @@ class SitePage extends StatelessWidget {
   }
 
   _body() {
-    return WebView(
-      initialUrl: "https://google.com",
-      onWebViewCreated: (controller) {
-        this.controller = controller;
-      },
-      javascriptMode: JavascriptMode.unrestricted,
-      navigationDelegate: (request) {
-        print(request.url);
-        return NavigationDecision.navigate;
-      },
-      // onPageStarted: (String url) {
-      //   print('Page started loading: $url');
-      // },
-      // onPageFinished: (String url) {
-      //   print('Page finished loading: $url');
-      // },
+    return IndexedStack(
+      index: _stackIdx,
+      children: <Widget>[
+        Column(
+          children: <Widget>[
+            Expanded(
+              child: WebView(
+                initialUrl: "https://youtube.com",
+                onWebViewCreated: (controller) {
+                  this.controller = controller;
+                },
+                javascriptMode: JavascriptMode.unrestricted,
+                navigationDelegate: (request) {
+                  print(request.url);
+                  return NavigationDecision.navigate;
+                },
+                // onPageStarted: (String url) {
+                //   print('Page started loading: $url');
+                // },
+                onPageFinished: _onPageFinished,
+              ),
+            )
+          ],
+        ),
+        Container(
+          color: Colors.white,
+          child: const Center(
+            child: CircularProgressIndicator(),
+          ),
+        )
+      ],
     );
+  }
+
+  void _onPageFinished(String value) {
+    setState(() {
+      _stackIdx = 0;
+    });
   }
 }
