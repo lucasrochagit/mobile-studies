@@ -11,7 +11,7 @@ class SitePage extends StatefulWidget {
 class _SitePageState extends State<SitePage> {
   WebViewController? controller;
 
-  var _stackIdx = 1;
+  var _showProgress = true;
 
   @override
   Widget build(BuildContext context) {
@@ -30,8 +30,7 @@ class _SitePageState extends State<SitePage> {
   }
 
   _body() {
-    return IndexedStack(
-      index: _stackIdx,
+    return Stack(
       children: <Widget>[
         Column(
           children: <Widget>[
@@ -54,8 +53,8 @@ class _SitePageState extends State<SitePage> {
             )
           ],
         ),
-        Container(
-          color: Colors.white,
+        Opacity(
+          opacity: _showProgress ? 1 : 0,
           child: const Center(
             child: CircularProgressIndicator(),
           ),
@@ -66,7 +65,7 @@ class _SitePageState extends State<SitePage> {
 
   void _onPageFinished(String value) {
     setState(() {
-      _stackIdx = 0;
+      _showProgress = false;
     });
   }
 }
